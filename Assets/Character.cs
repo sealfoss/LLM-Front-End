@@ -1,0 +1,484 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Text;
+
+/// <summary>
+/// Manages text descriptions of a self and any "percieved" other describable
+/// objects.
+/// </summary>
+public class Character : MonoBehaviour, IDescribable
+{
+    [Header("Character Attributes")]
+
+    [Tooltip("The name of this character.")]
+    [SerializeField] private string mCharacterName = "Bilbo";
+
+    [Tooltip("Who and what this character is. Short and sweet, use as little" +
+        " punctuation as possible.")]
+    [SerializeField] private string mSelfDescription = 
+        "a simulated video game character";
+
+    [Tooltip("Integer value, [0-4].\n\"Openness is an overarching concept or" +
+        " philosophy that is characterized by an emphasis on transparency and " +
+        "collaboration.\" -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mOpenness = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"...the personality trait of being " +
+        "careful or diligent.\" -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mConscientiousness = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"Extraversion tends to be manifested in " +
+        "outgoing, talkative, energetic behavior.\" -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mExtraversion = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"Agreeableness is a personality trait " +
+        "that manifests as behavior that is perceived as kind, sympathetic, " +
+        "cooperative, warm, frank, and considerate.\" -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mAgreeableness = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"...individuals with high scores for" +
+        " neuroticism are more likely than average to be moody and to" +
+        " experience such feelings as anxiety, worry, fear, anger," +
+        " frustration, envy, jealousy, pessimism, guilt, depressed mood, and" +
+        " loneliness.\" -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mNeuroticsm = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"Happiness is a positive and pleasant " +
+        "emotion, ranging from contentment to intense joy.\" - Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mHappiness = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"Anger, also known as wrath or rage, " +
+        "is an intense emotional state involving a strong uncomfortable and " +
+        "non-cooperative response to a perceived provocation, hurt or threat.\"" +
+        " -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mAnger = 2;
+
+    [Tooltip("Integer value, [0-4].\n\"Sarcasm is the caustic use of words, " +
+        "often in a humorous way, to mock someone or something.\" -Wikipedia")]
+    [MinMax(0, 4)]
+    [SerializeField] private int mSarcasm = 2;
+
+    [Tooltip("List of things this character avoids in conversation.")]
+    [SerializeField] private string[] mSecrets;
+
+    [Tooltip("List of things this character would love to tell you about.")]
+    [SerializeField] private string[] mShirtSleeve;
+
+    [Header("Model Paramters")]
+
+    [Tooltip("\"The maximum number of tokens to generate in the completion.\" " +
+        "-OpenAI API Documentation")]
+    [SerializeField] private int mMaxTokens = 4096;
+
+    [Tooltip("\"What sampling temperature to use, between 0 and 2. Higher" +
+        " values like 0.8 will make the output more random, while lower values" +
+        " like 0.2 will make it more focused and deterministic.\" " +
+        "-OpenAI API Documenation")]
+    [SerializeField] private float mTemperature = 0.7f;
+
+    [Tooltip("\"Number between -2.0 and 2.0. Positive values penalize new " +
+        "tokens based on whether they appear in the text so far, increasing the" +
+        " model's likelihood to talk about new topics.\" " +
+        "-OpenAI API Documenation")]
+    [SerializeField] float mPresencePenalty = 1.0f;
+
+    [Tooltip( "\"Number between - 2.0 and 2.0.Positive values penalize new " +
+        "tokens based on their existing frequency in the text so far, " +
+        "decreasing the model's likelihood to repeat the same line verbatim.\"" +
+        " -OpenAI API Documenation")]
+    [SerializeField] float mFrequencyPenalty = 1.0f;
+
+    [Tooltip("How many seconds per char the character should wait before" +
+    " doing anything else after saying something.")]
+    [SerializeField] float mWaitScalar = 0.1f;
+
+    [Tooltip("Max time to wait before making a new gpt reply request.")]
+    [SerializeField] private float mMaxReplyWait = 20.0f;
+
+
+    [Header("Test Features")]
+
+    [Tooltip("Test statement for the character to make manually.")]
+    [SerializeField] private string mManualStatement = "";
+
+    [Tooltip("Causes character to make a manually entered test statement.")]
+    [SerializeField] private bool mMakeManualStatment = false;
+
+    [Tooltip("Causes status statements to be printed to console.")]
+    [SerializeField] private bool mVerbose = false;
+
+    /// <summary>
+    /// Controller asset in scene that generates personality prompts for all 
+    /// LLM personalities. 
+    /// </summary>
+    private PersonalityManager mPersonalityController;
+
+    /// <summary>
+    /// Personality description based on parameters.
+    /// </summary>
+    private string[] mPersonality;
+
+    /// <summary>
+    /// Single string representing all aspects of personality.
+    /// </summary>
+    private string mPersonalityPrompt;
+
+    /// <summary>
+    /// String builder used to build prompt strings efficiently.
+    /// </summary>
+    private StringBuilder mBuilder;
+  
+    /// <summary>
+    /// Communication interface between the character and GPT.
+    /// </summary>
+    private GptCommunicator mGpt;
+
+    /// <summary>
+    /// Abstract hearing sense to generate prompts from heard "sounds".
+    /// </summary>
+    private Hearing mHearing;
+
+    /// <summary>
+    /// Function delegate to "say" statements to surrounding characters.
+    /// </summary>
+    /// <param name="speaker">
+    /// The Character making the statement.
+    /// </param>
+    /// The statement being made.
+    /// <param name="statment"></param>
+    public delegate void SayToOthers(Character speaker, string statment);
+
+    /// <summary>
+    /// Event fired to "say" statements to surrounding characters.
+    /// </summary>
+    public event SayToOthers onSayToOthers;
+
+    /// <summary>
+    /// What the character is "looking at" currently.
+    /// </summary>
+    private IDescribable mLookingAt;
+
+    /// <summary>
+    /// Vision abstraction to describe what the character
+    /// can "see" in a written prompt.
+    /// </summary>
+    private Vision mVision;
+
+    /// <summary>
+    /// Text description of Character's role they are playing.
+    /// </summary>
+    private string mRole;
+
+    /// <summary>
+    /// List of GPT Messages sent and received on behalf of this Character.
+    /// </summary>
+    private List<GptCommunicator.Message> mMessages;
+
+    /// <summary>
+    /// Description of Character's surroundings.
+    /// </summary>
+    private string mSurroundings;
+
+    /// <summary>
+    /// How long the character should wait before making another statment,
+    /// based on the previous statement.
+    /// </summary>
+    private float mLastStatementWait;
+
+    /// <summary>
+    /// The last time a statement was made.
+    /// </summary>
+    private float mLastStatementTime;
+
+    /** Accessors/Setters **/
+    public string CharacterName { get => mCharacterName; }
+    public string SelfDescription { get => mSelfDescription; }
+    public float Temperature { get => mTemperature; }
+    public float PresencePenalty { get => mPresencePenalty; }
+    public float FrequencyPenalty { get => mFrequencyPenalty; }
+    public int Openness { get => mOpenness; }
+    public int Conscientiousness { get => mConscientiousness; }
+    public int Extraversion { get => mExtraversion; }
+    public int Agreeableness { get => mAgreeableness; }
+    public int Neroticsm { get => mNeuroticsm; }
+    public int Happiness { get => mHappiness; }
+    public int Anger { get => mAnger; }
+    public int Sarcasm { get => mSarcasm; }
+    public string[] Secrets { get => mSecrets; }
+    public string[] ShirtSleeve { get => mShirtSleeve; }
+    public IDescribable LookingAt
+    {
+        get => mLookingAt;
+        set => mLookingAt = value;
+    }
+    public string[] Personality { get => mPersonality; }
+    public List<GptCommunicator.Message> Messages { get => mMessages; }
+    public bool Verbose { get => mVerbose; }
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    private void OnEnable()
+    {
+        mBuilder = new StringBuilder(mMaxTokens * 4);
+        mMessages = new List<GptCommunicator.Message>();
+        mPersonalityController = FindAnyObjectByType<PersonalityManager>();
+        if (mPersonalityController == null)
+            Debug.LogError($"ERROR: No PersonalityManager found in scene!");
+        mPersonality = mPersonalityController.GenerateNewPersonality(this);
+        mBuilder.Clear();
+        foreach (string aspect in mPersonality)
+            mBuilder.Append($"{aspect}");
+        mPersonalityPrompt = mBuilder.ToString();
+        mVision = GetComponentInChildren<Vision>();
+        if (mVision == null)
+            Debug.LogError($"ERROR: Character {mCharacterName} has no vision" +
+                $" component!");
+        mGpt = FindFirstObjectByType<GptCommunicator>();
+        if (mGpt == null)
+            Debug.LogError($"ERROR: Gpt communicator not found in scene!");
+        mRole = $"{Defines.ROLE_HEAD} {SelfDescription} {Defines.ROLE_MID} " +
+            $"{mPersonalityPrompt} {Defines.ROLE_TAIL}";
+        SetSystemPrompt(mRole);
+        mHearing = gameObject.GetComponentInChildren<Hearing>();
+    }
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before any
+    /// of the Update methods are called the first time.
+    /// </summary>
+    private void Start()
+    {
+
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if (mMakeManualStatment)
+            MakeManualStatement();
+    }
+
+    /// <summary>
+    /// Checks whether the character can see or hear anything.
+    /// Only handles vision right now. TO DO: Handle hearing.
+    /// </summary>
+    public void AssessSurroundings()
+    {
+        // Text description of Character's environment.
+        string assessment = DescribeVisualSurroundings();
+        if(!assessment.Equals(string.Empty))
+            mGpt.RequestVisualQueuePrompt(assessment, this, SayOutLoud);
+        Debug.Log($"{mCharacterName} sees the following:\n{assessment}");
+    }
+
+    /// <summary>
+    /// Sets the system prompt for the message list.
+    /// </summary>
+    /// <param name="prompt"></param>
+    public void SetSystemPrompt(string prompt)
+    {
+        // New system prompt message.
+        GptCommunicator.Message system = new GptCommunicator.Message
+        {
+            role = "system",
+            content = prompt
+        };
+
+        if (mMessages.Count > 0)
+            mMessages.RemoveAt(0);
+        mMessages.Insert(0, system);
+        Debug.Log($"{mCharacterName} is using the following role:" +
+            $"\n\"{mRole}\"");
+    }
+
+    /// <summary>
+    /// Checks verbosity.
+    /// </summary>
+    /// <returns>
+    /// True if Character is verbose, false if set otherwise.
+    /// </returns>
+    public bool IsVerbose()
+    {
+        return mVerbose;
+    }
+
+    /// <summary>
+    /// Character makes a preset statement for debugging.
+    /// </summary>
+    private void MakeManualStatement()
+    {
+        if (Verbose)
+            Debug.Log($"{mCharacterName} is making the manual statement " +
+                $"\"{mManualStatement}\".");
+        if (mManualStatement != null && mManualStatement.Length > 0)
+            onSayToOthers?.Invoke(this, mManualStatement);
+        mMakeManualStatment = false;
+    }
+
+    /// <summary>
+    /// Makes a statement out loud to surrounding Characters.
+    /// </summary>
+    /// <param name="statement">
+    /// Statement being made.
+    /// </param>
+    private void SayOutLoud(string statement)
+    {
+        // Current game time.
+        float time = Time.realtimeSinceStartup;
+
+        // Difference between current time and the last dialogue request.
+        float delta = time - mLastStatementTime;
+
+        // How long to wait before making another request.
+        float waitSeconds = delta > mLastStatementWait ? 
+            0 : Mathf.Min(mMaxReplyWait, mLastStatementWait - delta);
+
+        StartCoroutine(MakeStatement(statement, waitSeconds));
+        mLastStatementTime = time;
+        mLastStatementWait = statement.Length * mWaitScalar;
+    }
+
+    /// <summary>
+    /// Makes a reply request from GPT.
+    /// </summary>
+    /// <param name="statement">
+    /// The statement to reply to.
+    /// </param>
+    /// <param name="waitSeconds">
+    /// How long to wait before making the request.
+    /// </param>
+    /// <returns></returns>
+    IEnumerator MakeStatement(string statement, float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        onSayToOthers?.Invoke(this, statement);
+        Debug.Log($"{mCharacterName} said \"{statement}\".");
+    }
+
+    /// <summary>
+    /// Executes function calls based on text description of intended actions.
+    /// </summary>
+    /// <param name="instructions">
+    /// Text description from which to generate fuction calls.
+    /// </param>
+    private void FollowInstructions(string instructions)
+    {
+        // To do.
+    }
+
+    /// <summary>
+    /// Receives a statement made by another character,
+    /// illicits a response if appropriate.
+    /// </summary>
+    /// <param name="speaker">
+    /// Character making the statement.
+    /// </param>
+    /// <param name="statement">
+    /// Statement being made by the spearker.
+    /// </param>
+    public void HearFromOther(IDescribable speaker, string statement)
+    {
+        string prompt = $"{speaker.DescribeSelfForOther(this)} " +
+            $"{Defines.HEAR_OTHER_MID} \"{statement}\"{Defines.END_TAIL}";
+        if (mVerbose)
+            Debug.Log($"{mCharacterName} heard \"{statement}\".");
+        mGpt.RequestConversationalReply(prompt, this, SayOutLoud);
+    }
+
+    /// <summary>
+    /// Recieves a text descritption of a noise made in the vicinity of a
+    /// Character, illicits a response if approrpriate.
+    /// </summary>
+    /// <param name="noiseMaker">
+    /// Thing that made the noise.
+    /// </param>
+    /// <param name="noise">
+    /// Text description of the noise.
+    /// </param>
+    public void HearFromNonAnimate(IDescribable noiseMaker, string noise)
+    {
+        mBuilder.Clear();
+        mBuilder.Append($"{Defines.HEAR_NONANIM_HEAD} {noise} " +
+            $"{Defines.HEAR_NONANIM_MID} {noiseMaker.DescribeSelfForOther(this)}" +
+            $"{Defines.END_TAIL}");
+        mBuilder.Append(DescribeVisualSurroundings());
+        mGpt.RequestReactionInstructions(mBuilder.ToString(), this, FollowInstructions);
+    }
+
+    /// <summary>
+    /// Generates a text description of the Character's visual surroundings.
+    /// </summary>
+    /// <returns></returns>
+    public string DescribeVisualSurroundings()
+    {
+        // Things seen by Character.
+        IDescribable[] seen = mVision.Seen;
+
+        // Iterator variable.
+        int i;
+
+        // Description of visual surroundings.
+        string description = string.Empty;
+
+        if (seen.Length > 0)
+        {
+            mBuilder.Clear();
+            mBuilder.Append($"{Defines.SEE_HEAD} ");
+            for (i = 0; i < seen.Length; i++)
+            {
+                if (i < seen.Length - 1)
+                    mBuilder.Append($"{seen[i].DescribeSelfForOther(this)}" +
+                        $"{Defines.LIST_TAIL}");
+                else
+                    if(seen.Length > 1)
+                        mBuilder.Append($"{Defines.LIST_HEAD} " +
+                            $"{seen[i].DescribeSelfForOther(this)}{Defines.END_TAIL}");
+                    else
+                        mBuilder.Append($"{seen[i].DescribeSelfForOther(this)}" +
+                            $"{Defines.END_TAIL}");
+            }
+            description = mBuilder.ToString();
+        }
+        mSurroundings = description;
+        return description;
+    }
+
+    /// <summary>
+    /// Generates a text description of this character for another character.
+    /// </summary>
+    /// <param name="caller">
+    /// Character the text description is being generated for.
+    /// </param>
+    /// <returns>
+    /// Character the text description os being generated of.
+    /// </returns>
+    public string DescribeSelfForOther(Character caller)
+    {
+        mBuilder.Clear();
+        mBuilder.Append($"{SelfDescription} {Defines.DESC_NAME} {CharacterName}");
+        if (LookingAt != null)
+            if ((object)LookingAt != caller)
+                mBuilder.Append($" {Defines.LOOK_OTHER} {LookingAt}");
+            else
+                mBuilder.Append($" {Defines.LOOK_YOU}");
+        else
+            mBuilder.Append($" {Defines.LOOK_NOTH}");
+        return mBuilder.ToString();
+    }
+
+    public string GetName()
+    {
+        return CharacterName;
+    }
+}

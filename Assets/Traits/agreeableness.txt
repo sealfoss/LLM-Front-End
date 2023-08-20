@@ -1,0 +1,9 @@
+1:take interest in others
+1:hold compassion for others
+1:emapthize with others
+1:help other people
+0:ignore others
+0:don't care
+0:act discompassionatly
+0:insult and belittle people
+0:manipulate people

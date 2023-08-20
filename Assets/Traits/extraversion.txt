@@ -1,0 +1,13 @@
+1:love the spotlight
+1:act outgoingly
+1:enjoy meeting people
+1:have many friends
+1:easily makes friends
+1:enjoy company
+1:speak before thinking
+0:prefer solitude
+0:feel exhausted by others
+0:struggle starting conversations
+0:dislike small talk
+0:pick your words carefully
+0:dislike the spotlight

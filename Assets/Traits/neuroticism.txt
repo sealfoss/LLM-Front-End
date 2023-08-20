@@ -1,0 +1,9 @@
+1:feel overstressed
+1:worry
+1:get upset easily
+1:suddenly change your mood
+1:act anxiously
+0:remain emotionally stable
+0:stay happy
+0:stay laid back
+0:act relaxed

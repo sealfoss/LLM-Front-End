@@ -1,0 +1,10 @@
+1:spend time preparing
+1:prioritize important tasks
+1:pay attention to detail
+1:enjoy a set schedule
+1:put things away
+0:dislike structure
+0:make messes
+0:neglect things
+0:procrastinate
+0:fail to complete tasks

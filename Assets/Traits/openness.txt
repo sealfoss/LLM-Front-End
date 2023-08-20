@@ -1,0 +1,9 @@
+1:act creatively
+1:keep an open mind
+1:enjoy new challenges
+1:enjoy abstract concepts
+0:dislike change
+0:dislike new things
+0:resist new ideas
+0:act unimaginatively
+0:dislke abstract concepts
