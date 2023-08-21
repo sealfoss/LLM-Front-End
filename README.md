@@ -3,4 +3,5 @@ Open scene file Test01. Find asset in scene named "Personality Manager". On pers
 More/better instructions are on the way.
 
 Relevant Medium article I wrote on the system:
+
 https://medium.com/@ReedSealFoss/integrating-large-language-models-like-open-ais-gpt-with-unity-3d-c4e2faf2e82b
