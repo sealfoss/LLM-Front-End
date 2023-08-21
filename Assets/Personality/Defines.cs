@@ -1,13 +1,13 @@
 
 public static class Defines
 {
-    public const string TRAITS_FOLDER = "Assets/Traits";
+    public const string TRAITS_PATH = "Assets/Personality/Traits/";
     public const string TRAITS_EXT = ".txt";
     public const char TRAIT_SPLIT = ':';
     public const char TRAITS_POS = '1';
     public const char TRAITS_NEG = '0';
-    public const string ACTION_TERMS_PATH = "Assets/Traits/action_terms.txt";
-    public const string DEGREE_TERMS_PATH = "Assets/Traits/degree_terms.txt";
+    public const string ACTION_TERMS_FILE = "action_terms.txt";
+    public const string DEGREE_TERMS_FILE = "degree_terms.txt";
     public const string OPEN_NAME = "openness";
     public const string OPEN_ADJ = "open";
     public const string CONSC_NAME = "conscientiousness";
@@ -62,7 +62,7 @@ public static class Defines
         " say \"MOVE: \" followed by the name of where you should move to.";
     public const string RESPONSE_DENY = "NO-STATEMENT"; // Something nobody would ever say, I think.
     public const string MOOD_HEAD = "As for your current mood, you";
-    public const string MOOD_TERMS_PATH = "Assets/Traits/degree_terms.txt";
+    public const string MOOD_TERMS_PATH = "degree_terms.txt";
     public const string VIS_ASSESS_HEAD = "You see";
     public const string VIS_ASSESS_SAY = "What do you have to say about this? " +
         "Give only the dialoge you would use, not a descripton of it.";

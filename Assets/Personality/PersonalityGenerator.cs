@@ -82,7 +82,7 @@ public class PersonalityGenerator
 
             // Path to trait's descriptions file.
             string path =
-                $"{Defines.TRAITS_FOLDER}/{mName}{Defines.TRAITS_EXT}";
+                $"{Defines.TRAITS_PATH}/{mName}{Defines.TRAITS_EXT}";
 
             // Lines read from file.
             string[] lines = File.ReadAllLines(path);
@@ -168,9 +168,12 @@ public class PersonalityGenerator
             mAspectIndicies[mTraits[i].Name] = i;
         for (i = 0; i < mMoods.Length; i++)
             mAspectIndicies[mMoods[i].Name] = i;
-        mActionTerms = File.ReadAllLines(Defines.ACTION_TERMS_PATH);
-        mDegreeTerms = File.ReadAllLines(Defines.DEGREE_TERMS_PATH);
-        mMoodTerms = File.ReadAllLines(Defines.MOOD_TERMS_PATH);
+        mActionTerms = File.ReadAllLines($"{Defines.TRAITS_PATH}" +
+            $"{Defines.ACTION_TERMS_FILE}");
+        mDegreeTerms = File.ReadAllLines($"{Defines.TRAITS_PATH}" +
+            $"{Defines.DEGREE_TERMS_FILE}");
+        mMoodTerms = File.ReadAllLines($"{Defines.TRAITS_PATH}" +
+            $"{Defines.MOOD_TERMS_PATH}");
         mBuilder = new StringBuilder(mInitChars);
     }
 

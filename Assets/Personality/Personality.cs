@@ -7,7 +7,7 @@ using System.Text;
 /// Manages text descriptions of a self and any "percieved" other describable
 /// objects.
 /// </summary>
-public class Character : MonoBehaviour, IDescribable
+public class Personality : MonoBehaviour, IDescribable
 {
     [Header("Character Attributes")]
 
@@ -66,10 +66,12 @@ public class Character : MonoBehaviour, IDescribable
     [MinMax(0, 4)]
     [SerializeField] private int mSarcasm = 2;
 
-    [Tooltip("List of things this character avoids in conversation.")]
+    [Tooltip("List of things this character avoids in conversation, in the" +
+        " form, \"Secretly, you...\"")]
     [SerializeField] private string[] mSecrets;
 
-    [Tooltip("List of things this character would love to tell you about.")]
+    [Tooltip("List of things this character would love to tell you about, in" +
+        " the form \"You want everyone to know...\"")]
     [SerializeField] private string[] mShirtSleeve;
 
     [Header("Model Paramters")]
@@ -122,9 +124,9 @@ public class Character : MonoBehaviour, IDescribable
     private PersonalityManager mPersonalityController;
 
     /// <summary>
-    /// Personality description based on parameters.
+    /// Personality descriptions based on parameters.
     /// </summary>
-    private string[] mPersonality;
+    private string[] mDescriptions;
 
     /// <summary>
     /// Single string representing all aspects of personality.
@@ -154,7 +156,7 @@ public class Character : MonoBehaviour, IDescribable
     /// </param>
     /// The statement being made.
     /// <param name="statment"></param>
-    public delegate void SayToOthers(Character speaker, string statment);
+    public delegate void SayToOthers(Personality speaker, string statment);
 
     /// <summary>
     /// Event fired to "say" statements to surrounding characters.
@@ -219,7 +221,7 @@ public class Character : MonoBehaviour, IDescribable
         get => mLookingAt;
         set => mLookingAt = value;
     }
-    public string[] Personality { get => mPersonality; }
+    public string[] Descriptions { get => mDescriptions; }
     public List<GptCommunicator.Message> Messages { get => mMessages; }
     public bool Verbose { get => mVerbose; }
 
@@ -233,9 +235,9 @@ public class Character : MonoBehaviour, IDescribable
         mPersonalityController = FindAnyObjectByType<PersonalityManager>();
         if (mPersonalityController == null)
             Debug.LogError($"ERROR: No PersonalityManager found in scene!");
-        mPersonality = mPersonalityController.GenerateNewPersonality(this);
+        mDescriptions = mPersonalityController.GenerateNewPersonality(this);
         mBuilder.Clear();
-        foreach (string aspect in mPersonality)
+        foreach (string aspect in mDescriptions)
             mBuilder.Append($"{aspect}");
         mPersonalityPrompt = mBuilder.ToString();
         mVision = GetComponentInChildren<Vision>();
@@ -463,7 +465,7 @@ public class Character : MonoBehaviour, IDescribable
     /// <returns>
     /// Character the text description os being generated of.
     /// </returns>
-    public string DescribeSelfForOther(Character caller)
+    public string DescribeSelfForOther(Personality caller)
     {
         mBuilder.Clear();
         mBuilder.Append($"{SelfDescription} {Defines.DESC_NAME} {CharacterName}");

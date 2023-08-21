@@ -19,7 +19,7 @@ public class PersonalityManager : MonoBehaviour
     /// <returns>
     /// Text description of a given parameterized personality.
     /// </returns>
-    public string[] GenerateNewPersonality(Character character)
+    public string[] GenerateNewPersonality(Personality character)
     {
         // Integer values representing big five personality traits.
         int[] traits = 

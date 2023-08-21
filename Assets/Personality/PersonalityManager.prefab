@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8933846478279403939
+--- !u!1 &2318314383125762322
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,61 +8,57 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5878336161456888179}
-  - component: {fileID: 4606222482678869601}
-  - component: {fileID: 2979992092374173132}
+  - component: {fileID: 5069479206399933993}
+  - component: {fileID: 6893122376739814369}
+  - component: {fileID: 6328615725688597917}
   m_Layer: 0
-  m_Name: AudienceDetector
+  m_Name: PersonalityManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5878336161456888179
+--- !u!4 &5069479206399933993
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8933846478279403939}
+  m_GameObject: {fileID: 2318314383125762322}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 2.52, y: 4.32, z: -1.9912107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4606222482678869601
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8933846478279403939}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2979992092374173132
+--- !u!114 &6893122376739814369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8933846478279403939}
+  m_GameObject: {fileID: 2318314383125762322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3503b287e502b04ebf91143ceeb1599, type: 3}
+  m_Script: {fileID: 11500000, guid: 63040ede197dc834ea79e8722232ba6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6328615725688597917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318314383125762322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85c41c552e4a3e45b08f6005e37f592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mApiKey: 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
+  mUrl: https://api.openai.com/v1/chat/completions
+  mModel: gpt-4
+  mRateLimit: 7
+  mSendRequests: 1

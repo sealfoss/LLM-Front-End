@@ -139,7 +139,7 @@ public class Vision : MonoBehaviour
     /// <summary>
     /// Character owning this vision component.
     /// </summary>
-    public Character mOwner;
+    public Personality mOwner;
 
     /// <summary>
     /// Describable objects visible to this component.
@@ -156,7 +156,7 @@ public class Vision : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        mOwner = GetComponentInParent<Character>();
+        mOwner = GetComponentInParent<Personality>();
         mVisibleLayerMask = 1 << mVisibleLayerIndex;
     }
 

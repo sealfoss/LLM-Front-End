@@ -18,7 +18,7 @@ public class SpeechDisplayController : MonoBehaviour
     /// </summary>
     private Camera mCam;
 
-    private Character mCharacter;
+    private Personality mCharacter;
 
     /// <summary>
     /// Called when object is enabled.
@@ -27,7 +27,7 @@ public class SpeechDisplayController : MonoBehaviour
     {
         mText = this.GetComponent<TextMeshPro>();
         mCam = Camera.main;
-        mCharacter = this.GetComponentInParent<Character>();
+        mCharacter = this.GetComponentInParent<Personality>();
         mCharacter.onSayToOthers += SetText;
         SetText(null, "");
     }
@@ -56,7 +56,7 @@ public class SpeechDisplayController : MonoBehaviour
     /// <param name="text">
     /// Text to display.
     /// </param>
-    public void SetText(Character character, string text)
+    public void SetText(Personality character, string text)
     {
         if (character != null)
             mText.text = $"{character.CharacterName}:\n{text}";

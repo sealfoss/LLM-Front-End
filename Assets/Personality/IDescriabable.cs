@@ -23,7 +23,7 @@ public interface IDescribable
     /// <returns>
     /// A self description.
     /// </returns>
-    public string DescribeSelfForOther(Character caller);
+    public string DescribeSelfForOther(Personality caller);
 
     /// <summary>
     /// Interacts with the Describable, generates a text description of the

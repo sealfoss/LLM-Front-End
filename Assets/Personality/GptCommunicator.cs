@@ -55,7 +55,7 @@ public class GptCommunicator : MonoBehaviour
     public class QueuePrompt
     {
         string prompt;
-        Character caller;
+        Personality caller;
         ResponseReceived callback;
     }
 
@@ -100,7 +100,7 @@ public class GptCommunicator : MonoBehaviour
     /// Method to execute once reply has been received from GPT.
     /// </param>
     public void RequestConversationalReply
-        (string prompt, Character caller, ResponseReceived callback)
+        (string prompt, Personality caller, ResponseReceived callback)
     {
         string replyPrompt = $"{prompt} {Defines.REPLY_INSTRUCT}" +
             $"{Defines.RESPONSE_CHECK}{Defines.RESPONSE_DENY}";
@@ -108,7 +108,7 @@ public class GptCommunicator : MonoBehaviour
     }
 
     public void RequestVisualQueuePrompt
-        (string prompt, Character caller, ResponseReceived callback)
+        (string prompt, Personality caller, ResponseReceived callback)
     {
         string replyPrompt = $"{Defines.VIS_ASSESS_HEAD} {prompt}" +
             $" {Defines.VIS_ASSESS_SAY} {Defines.RESPONSE_CHECK}" +
@@ -127,7 +127,7 @@ public class GptCommunicator : MonoBehaviour
     /// Method to execute upon receipt of instructions from GPT.
     /// </param>
     public void RequestReactionInstructions
-        (string prompt, Character caller, ResponseReceived callback)
+        (string prompt, Personality caller, ResponseReceived callback)
     {
         string spokenReplyPrompt = $"{prompt} {Defines.REACT_INSTRUCT}";
         StartCoroutine(PromptGpt(spokenReplyPrompt, caller, callback));
@@ -144,10 +144,11 @@ public class GptCommunicator : MonoBehaviour
     /// </param>
     /// <returns></returns>
     IEnumerator PromptGpt
-        (string prompt, Character caller, ResponseReceived callback)
+        (string prompt, Personality caller, ResponseReceived callback)
     {
         if (caller.Verbose)
-            Debug.Log($"Sending reply request for prompt:\n{prompt}.");
+            Debug.Log($"Sending reply request for prompt:\n{prompt} with" +
+                $" key {mApiKey}.");
         if (mSendRequests)
         {
             // Current game time.
@@ -157,7 +158,8 @@ public class GptCommunicator : MonoBehaviour
             float delta = time - mLastRequestTime;
 
             // How long to wait before making another request.
-            float waitSeconds = delta >= mRateLimit ? 0 : mRateLimit - delta;
+            float waitSeconds = mLastRequestTime == 0 || delta >= mRateLimit ?
+                0 : mRateLimit - delta;
 
             yield return new WaitForSeconds(waitSeconds);
             UnityWebRequest www = new UnityWebRequest(mUrl, "POST");

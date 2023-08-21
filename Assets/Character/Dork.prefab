@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 9210833076150052179}
   - component: {fileID: 6248646816757560802}
   - component: {fileID: 6635904164110896013}
-  - component: {fileID: 3438095202429742059}
+  - component: {fileID: 1821896484463924279}
   m_Layer: 7
   m_Name: Dork
   m_TagString: Untagged
@@ -221,7 +221,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3438095202429742059
+--- !u!114 &1821896484463924279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4780906852801764304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d8529a875ab0944eac7ec14a0237075, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f899f3a14953c94b85a5d27fde36bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mCharacterName: Bilbo
@@ -247,12 +247,13 @@ MonoBehaviour:
   mShirtSleeve: []
   mMaxTokens: 4096
   mTemperature: 0.7
-  mPresencePenalty: 0.5
-  mFrequencyPenalty: 0.5
+  mPresencePenalty: 1
+  mFrequencyPenalty: 1
+  mWaitScalar: 0.1
+  mMaxReplyWait: 20
   mManualStatement: 
   mMakeManualStatment: 0
   mVerbose: 0
-  mWaitScalar: 0.1
 --- !u!1001 &3008627973970610118
 PrefabInstance:
   m_ObjectHideFlags: 0

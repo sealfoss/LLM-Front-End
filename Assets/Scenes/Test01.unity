@@ -246,6 +246,76 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mAnger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mOpenness
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mHappiness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mNeuroticsm
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mExtraversion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mAgreeableness
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mCharacterName
+      value: Baggins
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mSelfDescription
+      value: an old man with cancer and Bilbo's father
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mConscientiousness
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mSecrets.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: 'mSecrets.Array.data[0]'
+      value: are worried you'll die soon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: 'mSecrets.Array.data[1]'
+      value: don't want to talk about cancer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: 'mSecrets.Array.data[2]'
+      value: wish you'd spent more time with your family
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mShirtSleeve.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2536294667873758197, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -453,6 +523,71 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mAnger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mSarcasm
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mOpenness
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mHappiness
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mNeuroticsm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mExtraversion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mAgreeableness
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mSelfDescription
+      value: a young boy and Baggins' son, home from school for the summer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mConscientiousness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mSecrets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: 'mSecrets.Array.data[0]'
+      value: think your dad is boring and no fun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mShirtSleeve.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: 'mShirtSleeve.Array.data[0]'
+      value: you're looking forward to going away to camp for the summer
+      objectReference: {fileID: 0}
     - target: {fileID: 2536294667873758197, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1102,12 +1237,12 @@ PrefabInstance:
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}
       propertyPath: mModel
-      value: gpt-4
+      value: gpt-3.5-turbo
       objectReference: {fileID: 0}
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}
       propertyPath: mApiKey
-      value: YOUR API KEY HERE
+      value: Your API Key Here
       objectReference: {fileID: 0}
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}

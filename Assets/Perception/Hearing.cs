@@ -12,14 +12,14 @@ public class Hearing : MonoBehaviour
     private SphereCollider mSphere;
 
     // Character hearing with this component.
-    private Character mOwner;
+    private Personality mOwner;
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>
     private void OnEnable()
     {
-        mOwner = GetComponentInParent<Character>();
+        mOwner = GetComponentInParent<Personality>();
         mSphere = GetComponent<SphereCollider>();
         mSphere.radius = mRadius;
         CheckEarshot();
@@ -35,7 +35,7 @@ public class Hearing : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Other character, if any.
-        Character character = other.GetComponent<Character>();
+        Personality character = other.GetComponent<Personality>();
 
         if (character && character != mOwner)
             character.onSayToOthers += mOwner.HearFromOther;
@@ -51,7 +51,7 @@ public class Hearing : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         // Other character, if any.
-        Character character = other.GetComponent<Character>();
+        Personality character = other.GetComponent<Personality>();
 
         if (character && character != mOwner)
             character.onSayToOthers -= mOwner.HearFromOther;
@@ -66,11 +66,11 @@ public class Hearing : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, mRadius);
 
         // Found Character owner of a given collider.
-        Character character;
+        Personality character;
 
         foreach(Collider collider in colliders)
         {
-            character = collider.GetComponent<Character>();
+            character = collider.GetComponent<Personality>();
             if (character && character != mOwner)
                 character.onSayToOthers += mOwner.HearFromOther;
         }
