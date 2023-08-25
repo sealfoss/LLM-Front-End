@@ -10,6 +10,29 @@ public class PersonalityManager : MonoBehaviour
     /// </summary>
     PersonalityGenerator mGenerator = new PersonalityGenerator();
 
+    public string GenerateSummary(Personality character)
+    {        
+        // Integer values representing big five personality traits.
+        int[] traits =
+        {
+            character.Openness,
+            character.Conscientiousness,
+            character.Extraversion,
+            character.Agreeableness,
+            character.Neroticsm
+        };
+
+        // Integer values representing defined moods.
+        int[] moods =
+        {
+            character.Happiness,
+            character.Anger,
+            character.Sarcasm
+        };
+
+        return mGenerator.GenerateSummary(traits, moods);
+    }
+
     /// <summary>
     /// Generates a new personality description based on parameterized values.
     /// </summary>

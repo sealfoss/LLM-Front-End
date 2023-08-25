@@ -35,7 +35,7 @@ public static class Defines
     public const string SHIRT_TAIL = 
         "and will mention this at every opportunity";
     public const string ROLE_HEAD = 
-        "For the purposes of a game, pretend you are";
+        "Respond as if you are";
     public const string ROLE_MID = "with the following personality:";
     public const string ROLE_TAIL =
         "Do not mention you are an AI machine learning model or Open AI.";
@@ -48,10 +48,7 @@ public static class Defines
     public const string LOOK_OTHER= "who is looking at";
     public const string LOOK_YOU = "who is looking at you";
     public const string LOOK_NOTH = "who is looking at nothing in particular";
-    public const string REPLY_INSTRUCT =
-        " What is your reply? Give only the dialogue of the reply to this" +
-        " statement from the first-person perspective, as if you are who is" +
-        " being spoken to.";
+    public const string REPLY_INSTRUCT = "What dialogue do you have to say outloud in reply?";
     public const string RESPONSE_CHECK = "If there's nothing to say here or" +
         " if you think you should not reply, or if there is no good response" +
         ", say only the following words:";
@@ -66,4 +63,17 @@ public static class Defines
     public const string VIS_ASSESS_HEAD = "You see";
     public const string VIS_ASSESS_SAY = "What do you have to say about this? " +
         "Give only the dialoge you would use, not a descripton of it.";
+    public const string DATE_FORMAT = "yy-MM-dd-HH-mm-ss";
+    public const string OUT_PREF = "PersonalityOutput";
+    public const int MAX_TOKENS = 4096;
+    public const string DIALOGUE_RULE = "Give only dialogue and only from" +
+        " the first-person perspective. Do not under any circumstances" +
+        " narrate the scene, what you are doing, or what you are saying.";
+    public const string TASKS_HEAD = "Right now you are busy";
+    public const string ASSESS_MID = "sees the following:\n";
+    public const string SYNTH_DIR = "Assets/DataSynthesis/";
+    public const string SYNTH_JOBS = "jobs.txt";
+    public const string SYNTH_NAMES = "names.txt";
+    public const string SYNTH_TASKS = "tasks.txt";
+    public const string SYNTH_TOPICS = "topics.txt";
 }

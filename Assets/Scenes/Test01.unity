@@ -249,7 +249,12 @@ PrefabInstance:
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mAnger
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mSarcasm
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
@@ -259,22 +264,22 @@ PrefabInstance:
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mHappiness
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mNeuroticsm
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mExtraversion
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mAgreeableness
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
@@ -283,13 +288,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
+      propertyPath: mPresencePenalty
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
       propertyPath: mSelfDescription
-      value: an old man with cancer and Bilbo's father
+      value: an old coal miner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: mFrequencyPenalty
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mConscientiousness
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
@@ -314,7 +329,7 @@ PrefabInstance:
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mShirtSleeve.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2536294667873758197, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
@@ -526,7 +541,7 @@ PrefabInstance:
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mAnger
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
@@ -536,37 +551,37 @@ PrefabInstance:
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mOpenness
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mHappiness
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mNeuroticsm
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mExtraversion
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mAgreeableness
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mSelfDescription
-      value: a young boy and Baggins' son, home from school for the summer
+      value: a young librarian
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mConscientiousness
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
@@ -990,7 +1005,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1286239649
 BoxCollider:
@@ -1024,7 +1039,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1033,7 +1048,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7380b4a1e5e1d9e4185a0511eeaebe44, type: 2}
+  - {fileID: 2100000, guid: 1b68601aa853380428746e854e348ed8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1072,8 +1087,8 @@ Transform:
   m_GameObject: {fileID: 1286239648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6028777, y: 3.0226302, z: -0.2602777}
-  m_LocalScale: {x: 25, y: 1, z: 25}
+  m_LocalPosition: {x: 0, y: -9, z: 0}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1143,7 +1158,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: ecb3af12cba0bb54f87ededcf6931d8c, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -1165,7 +1180,7 @@ Transform:
   m_GameObject: {fileID: 1778313813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -128, y: 0, z: -128}
+  m_LocalPosition: {x: -500, y: 0, z: -500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1242,12 +1257,17 @@ PrefabInstance:
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}
       propertyPath: mApiKey
-      value: Your API Key Here
+      value: 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
       objectReference: {fileID: 0}
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}
       propertyPath: mRateLimit
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
+        type: 3}
+      propertyPath: mRecordOutput
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

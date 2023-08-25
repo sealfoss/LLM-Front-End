@@ -202,7 +202,7 @@ public class PersonalityGenerator
         // Iterator. 
         int i;
 
-        if (traitValue != 3)
+        if (traitValue != 2)
         {
             mBuilder.Clear();
             mBuilder.Append($"{Defines.ACTION_HEAD}" +
@@ -326,16 +326,72 @@ public class PersonalityGenerator
         // Iterator variable.
         int i;
 
+        // Whether any mood descriptions have been used.
+        bool useMood = false;
+
         mBuilder.Clear();
         mBuilder.Append($"{Defines.MOOD_HEAD} ");
         for (i = 0; i < moodValues.Length; i++)
         {
-            mood = mMoods[i];
-            description = $"{mMoodTerms[moodValues[i]]} {mood.Adjective}";
-            mBuilder.Append(description);
-            tail = i < moodValues.Length - 1 ?
-                Defines.LIST_TAIL : Defines.END_TAIL;
-            mBuilder.Append(tail);
+            if (moodValues[i] != 2)
+            {
+                useMood = true;
+                mood = mMoods[i];
+                description = $"{mMoodTerms[moodValues[i]]} {mood.Adjective}";
+                mBuilder.Append(description);
+                tail = i < moodValues.Length - 1 ?
+                    Defines.LIST_TAIL : Defines.END_TAIL;
+                mBuilder.Append(tail);
+            }
+        }
+        description = useMood ? mBuilder.ToString() : "";
+        return description;
+    }
+
+    /// <summary>
+    /// Generates a summary of given personality values.
+    /// </summary>
+    /// <param name="traits">
+    /// Values for personality traits.
+    /// </param>
+    /// <param name="moods">
+    /// Values for personality moods.
+    /// </param>
+    /// <returns></returns>
+    public string GenerateSummary(int[] traits, int[] moods)
+    {
+        // Mood being described.
+        PersonalityAspect mood;
+
+        // Trait to describe.
+        Trait trait;
+
+        // Value of personality aspect being recorded.
+        int val;
+
+        // Iterator. 
+        int i;
+
+        mBuilder.Clear();
+        for (i=0; i < traits.Length; i++)
+        {
+            val = traits[i];
+            if (val != 2)
+            {
+                trait = mTraits[i];
+                mBuilder.Append($"{Defines.ACTION_HEAD}" +
+                    $" {mDegreeTerms[val]} {trait.Adjective}.");
+            }
+        }
+        for(i = 0; i < moods.Length; i++)
+        {
+            val = moods[i];
+            if(val != 2)
+            {
+                mood = mMoods[i];
+                mBuilder.Append($"{Defines.ACTION_HEAD}" +
+                    $" {mDegreeTerms[val]} {mood.Adjective}.");
+            }
         }
         return mBuilder.ToString();
     }
@@ -374,6 +430,7 @@ public class PersonalityGenerator
         personalityDescriptions.Add(
             GenerateShirtSleeveDescription(shirtSleeve)
         );
+
         return personalityDescriptions.ToArray();
     }
 

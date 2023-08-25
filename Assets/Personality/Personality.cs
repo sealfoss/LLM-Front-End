@@ -74,11 +74,14 @@ public class Personality : MonoBehaviour, IDescribable
         " the form \"You want everyone to know...\"")]
     [SerializeField] private string[] mShirtSleeve;
 
+    [Tooltip("What this character is doing right now. The tasks at hand.")]
+    [SerializeField] private string[] mTasks;
+
     [Header("Model Paramters")]
 
     [Tooltip("\"The maximum number of tokens to generate in the completion.\" " +
         "-OpenAI API Documentation")]
-    [SerializeField] private int mMaxTokens = 4096;
+    [SerializeField] private int mMaxTokens = Defines.MAX_TOKENS;
 
     [Tooltip("\"What sampling temperature to use, between 0 and 2. Higher" +
         " values like 0.8 will make the output more random, while lower values" +
@@ -200,6 +203,11 @@ public class Personality : MonoBehaviour, IDescribable
     /// </summary>
     private float mLastStatementTime;
 
+    /// <summary>
+    /// Short description of personality, for data collection purposes.
+    /// </summary>
+    private string mSummary;
+
     /** Accessors/Setters **/
     public string CharacterName { get => mCharacterName; }
     public string SelfDescription { get => mSelfDescription; }
@@ -224,6 +232,9 @@ public class Personality : MonoBehaviour, IDescribable
     public string[] Descriptions { get => mDescriptions; }
     public List<GptCommunicator.Message> Messages { get => mMessages; }
     public bool Verbose { get => mVerbose; }
+    public string Summary { get => mSummary; }
+    public string Tasks { get => TasksDescription(); }
+    public string Role { get => BuildRole(); }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -247,10 +258,10 @@ public class Personality : MonoBehaviour, IDescribable
         mGpt = FindFirstObjectByType<GptCommunicator>();
         if (mGpt == null)
             Debug.LogError($"ERROR: Gpt communicator not found in scene!");
-        mRole = $"{Defines.ROLE_HEAD} {SelfDescription} {Defines.ROLE_MID} " +
-            $"{mPersonalityPrompt} {Defines.ROLE_TAIL}";
+        mRole = BuildRole();
         SetSystemPrompt(mRole);
         mHearing = gameObject.GetComponentInChildren<Hearing>();
+        mSummary = mPersonalityController.GenerateSummary(this);
     }
 
     /// <summary>
@@ -272,6 +283,46 @@ public class Personality : MonoBehaviour, IDescribable
     }
 
     /// <summary>
+    /// Builds a role description string from parameter description strings.
+    /// </summary>
+    /// <returns>
+    /// Role description.
+    /// </returns>
+    private string BuildRole()
+    {
+        mRole = $"{Defines.ROLE_HEAD} {SelfDescription} named " +
+            $"{CharacterName} {Defines.ROLE_MID} {mPersonalityPrompt} " +
+            $"{Tasks}{Defines.ROLE_TAIL} {Defines.DIALOGUE_RULE}";
+        return mRole;
+    }
+
+    /// <summary>
+    /// Generates a description of current tasks occupied by this character.
+    /// </summary>
+    /// <returns>
+    /// Task desscription string.
+    /// </returns>
+    private string TasksDescription()
+    {
+        string description = "";
+        if (mTasks.Length > 0)
+        {
+            mBuilder.Clear();
+            mBuilder.Append($"{Defines.TASKS_HEAD} ");
+            for (int i = 0; i < mTasks.Length; i++)
+            {
+                mBuilder.Append(mTasks.Length);
+                if (i < mTasks.Length - 1)
+                    mBuilder.Append(Defines.LIST_TAIL);
+                else
+                    mBuilder.Append(Defines.END_TAIL);
+            }
+            description = mBuilder.ToString();
+        }
+        return description;
+    }
+
+    /// <summary>
     /// Checks whether the character can see or hear anything.
     /// Only handles vision right now. TO DO: Handle hearing.
     /// </summary>
@@ -281,7 +332,7 @@ public class Personality : MonoBehaviour, IDescribable
         string assessment = DescribeVisualSurroundings();
         if(!assessment.Equals(string.Empty))
             mGpt.RequestVisualQueuePrompt(assessment, this, SayOutLoud);
-        Debug.Log($"{mCharacterName} sees the following:\n{assessment}");
+        Debug.Log($"{mCharacterName} {Defines.ASSESS_MID}{assessment}");
     }
 
     /// <summary>
