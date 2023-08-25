@@ -31,9 +31,11 @@ public static class Defines
     public const string SECRET_HEAD = "Secretly, you";
     public const string SECRET_TAIL = 
         "and you will avoid talking about any of this.";
-    public const string SHIRT_HEAD = "You want everyone to know";
-    public const string SHIRT_TAIL = 
+    public const string SHIRT_HEAD = "You want to talk about";
+    public const string SHIRT_TAIL_SINGLE = 
         "and will mention this at every opportunity";
+    public const string SHIRT_TAIL_MULTI =
+        "and will mention these things at every opportunity";
     public const string ROLE_HEAD = 
         "Respond as if you are";
     public const string ROLE_MID = "with the following personality:";
@@ -76,4 +78,5 @@ public static class Defines
     public const string SYNTH_NAMES = "names.txt";
     public const string SYNTH_TASKS = "tasks.txt";
     public const string SYNTH_TOPICS = "topics.txt";
+    public const string SYNTH_PLACES = "places.txt";
 }

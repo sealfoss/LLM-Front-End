@@ -329,7 +329,12 @@ PrefabInstance:
     - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}
       propertyPath: mShirtSleeve.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821896484463924279, guid: b51e911047dadbe4880273ae3559ee78,
+        type: 3}
+      propertyPath: 'mShirtSleeve.Array.data[0]'
+      value: you like horses
       objectReference: {fileID: 0}
     - target: {fileID: 2536294667873758197, guid: b51e911047dadbe4880273ae3559ee78,
         type: 3}

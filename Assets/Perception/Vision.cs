@@ -146,10 +146,10 @@ public class Vision : MonoBehaviour
     /// </summary>
     private IDescribable[] mSeen;
 
-    /// <summary>
-    /// Accessor for mSeen.
-    /// </summary>
+    /** Accessors and Setters **/
     public IDescribable[] Seen { get => mSeen; }
+    public int FovHorizontal { get => mFovHorizontal; }
+    public int FovVertical { get => mFovVertical; }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -158,11 +158,6 @@ public class Vision : MonoBehaviour
     {
         mOwner = GetComponentInParent<Personality>();
         mVisibleLayerMask = 1 << mVisibleLayerIndex;
-    }
-
-    private void Start()
-    {
-        SetFov(mFovHorizontal);
     }
 
     /// <summary>
@@ -210,9 +205,10 @@ public class Vision : MonoBehaviour
     /// <param name="newFovDegrees">
     /// New field of view value in degrees.
     /// </param>
-    public void SetFov(int newFovDegrees)
+    public void SetFov(int fovHorizontal, int fovVertical)
     {
-        mFovHorizontal = newFovDegrees;
+        mFovHorizontal = fovHorizontal;
+        mFovVertical = fovVertical;
         GenerateTrigParams();
         mCollider = GetComponent<MeshCollider>();
         mVisionMesh = GenerateVisionVolume();

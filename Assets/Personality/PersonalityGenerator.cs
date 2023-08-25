@@ -294,8 +294,12 @@ public class PersonalityGenerator
             for (i = 0; i < shirtSleeve.Length; i++)
             {
                 mBuilder.Append(shirtSleeve[i]);
-                tail = i < shirtSleeve.Length - 1 ?
-                    Defines.LIST_TAIL : $", {Defines.SHIRT_TAIL} ";
+                if (i < shirtSleeve.Length - 1)
+                    tail = Defines.LIST_TAIL;
+                else
+                    tail = shirtSleeve.Length > 1 ? 
+                        $", {Defines.SHIRT_TAIL_MULTI}." : 
+                        $", {Defines.SHIRT_TAIL_SINGLE}.";
                 mBuilder.Append(tail);
             }
             description = mBuilder.ToString();

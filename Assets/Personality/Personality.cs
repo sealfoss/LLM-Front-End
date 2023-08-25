@@ -16,7 +16,7 @@ public class Personality : MonoBehaviour, IDescribable
 
     [Tooltip("Who and what this character is. Short and sweet, use as little" +
         " punctuation as possible.")]
-    [SerializeField] private string mSelfDescription = 
+    [SerializeField] private string mBackStory = 
         "a simulated video game character";
 
     [Tooltip("Integer value, [0-4].\n\"Openness is an overarching concept or" +
@@ -120,6 +120,9 @@ public class Personality : MonoBehaviour, IDescribable
     [Tooltip("Causes status statements to be printed to console.")]
     [SerializeField] private bool mVerbose = false;
 
+    [Tooltip("Whether to immediatly bring character personality to life.")]
+    [SerializeField] private bool mAutoActivate = false;
+
     /// <summary>
     /// Controller asset in scene that generates personality prompts for all 
     /// LLM personalities. 
@@ -210,7 +213,7 @@ public class Personality : MonoBehaviour, IDescribable
 
     /** Accessors/Setters **/
     public string CharacterName { get => mCharacterName; }
-    public string SelfDescription { get => mSelfDescription; }
+    public string SelfDescription { get => mBackStory; }
     public float Temperature { get => mTemperature; }
     public float PresencePenalty { get => mPresencePenalty; }
     public float FrequencyPenalty { get => mFrequencyPenalty; }
@@ -241,6 +244,41 @@ public class Personality : MonoBehaviour, IDescribable
     /// </summary>
     private void OnEnable()
     {
+        Init();
+    }
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before any
+    /// of the Update methods are called the first time.
+    /// </summary>
+    private void Start()
+    {
+        if (mAutoActivate)
+            StartPersonality();
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if (mMakeManualStatment)
+            MakeManualStatement();
+    }
+
+    /// <summary>
+    /// Starts the Personality.
+    /// </summary>
+    public void StartPersonality()
+    {
+        mVision.SetFov(mVision.FovHorizontal, mVision.FovVertical);
+    }
+
+    /// <summary>
+    /// Initializes (or reinitializes) the Personality.
+    /// </summary>
+    public void Init()
+    {
         mBuilder = new StringBuilder(mMaxTokens * 4);
         mMessages = new List<GptCommunicator.Message>();
         mPersonalityController = FindAnyObjectByType<PersonalityManager>();
@@ -262,24 +300,6 @@ public class Personality : MonoBehaviour, IDescribable
         SetSystemPrompt(mRole);
         mHearing = gameObject.GetComponentInChildren<Hearing>();
         mSummary = mPersonalityController.GenerateSummary(this);
-    }
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before any
-    /// of the Update methods are called the first time.
-    /// </summary>
-    private void Start()
-    {
-
-    }
-
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    private void Update()
-    {
-        if (mMakeManualStatment)
-            MakeManualStatement();
     }
 
     /// <summary>

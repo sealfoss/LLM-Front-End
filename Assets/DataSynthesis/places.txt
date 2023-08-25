@@ -1,0 +1,497 @@
+New York
+Los Angeles
+Chicago
+Houston
+Philadelphia
+Phoenix
+San Diego
+Dallas
+San Jose
+Austin
+Jacksonville
+San Francisco
+Indianapolis
+Columbus
+Fort Worth
+Charlotte
+Seattle
+Denver
+El Paso
+Detroit
+Washington
+Boston
+Memphis
+Nashville
+Portland
+Oklahoma City
+Las Vegas
+Baltimore
+Louisville
+Milwaukee
+Albuquerque
+Tucson
+Fresno
+Sacramento
+Kansas City
+Long Beach
+Mesa
+Atlanta
+Colorado Springs
+Virginia Beach
+Raleigh
+Omaha
+Miami
+Oakland
+Minneapolis
+Tulsa
+Wichita
+New Orleans
+Arlington
+Cleveland
+Bakersfield
+Tampa
+Aurora
+Honolulu
+Anaheim
+Santa Ana
+Corpus Christi
+Riverside
+St. Louis
+Lexington
+Stockton
+Pittsburgh
+Saint Paul
+Anchorage
+Cincinnati
+Henderson
+Greensboro
+Plano
+Newark
+Toledo
+Lincoln
+Orlando
+Chula Vista
+Jersey City
+Chandler
+Fort Wayne
+Buffalo
+Durham
+St. Petersburg
+Irvine
+Laredo
+Lubbock
+Madison
+Gilbert
+Norfolk
+Reno
+Winston-Salem
+Glendale
+Hialeah
+Garland
+Scottsdale
+Irving
+Chesapeake
+North Las Vegas
+Fremont
+Baton Rouge
+Richmond
+Boise
+San Bernardino
+Spokane
+Birmingham
+Modesto
+Des Moines
+Rochester
+Tacoma
+Fontana
+Oxnard
+Moreno Valley
+Fayetteville
+Huntington Beach
+Yonkers
+Glendale
+Montgomery
+Columbus
+Amarillo
+Little Rock
+Akron
+Shreveport
+Augusta
+Grand Rapids
+Mobile
+Salt Lake City
+Huntsville
+Tallahassee
+Grand Prairie
+Overland Park
+Knoxville
+Worcester
+Brownsville
+Newport News
+Santa Clarita
+Port St. Lucie
+Providence
+Fort Lauderdale
+Chattanooga
+Tempe
+Oceanside
+Garden Grove
+Rancho Cucamonga
+Cape Coral
+Santa Rosa
+Vancouver
+Sioux Falls
+Peoria
+Ontario
+Jackson
+Elk Grove
+Springfield
+Pembroke Pines
+Salem
+Corona
+Eugene
+McKinney
+Fort Collins
+Lancaster
+Cary
+Palmdale
+Hayward
+Salinas
+Frisco
+Springfield
+Pasadena
+Macon
+Alexandria
+Pomona
+Lakewood
+Sunnyvale
+Escondido
+Kansas City
+Hollywood
+Clarksville
+Torrance
+Rockford
+Joliet
+Paterson
+Bridgeport
+Naperville
+Savannah
+Mesquite
+Syracuse
+Pasadena
+Orange
+Fullerton
+Killeen
+Dayton
+McAllen
+Bellevue
+Miramar
+Hampton
+West Valley City
+Warren
+Olathe
+Columbia
+Thornton
+Carrollton
+Midland
+Charleston
+Waco
+Sterling Heights
+Denton
+Cedar Rapids
+New Haven
+Roseville
+Gainesville
+Visalia
+Coral Springs
+Thousand Oaks
+Elizabeth
+Stamford
+Concord
+Surprise
+Lafayette
+Topeka
+Kent
+Simi Valley
+Santa Clara
+Murfreesboro
+Hartford
+Athens
+Victorville
+Abilene
+Vallejo
+Berkeley
+Norman
+Allentown
+Evansville
+Columbia
+Odessa
+Fargo
+Beaumont
+Independence
+Ann Arbor
+El Monte
+Springfield
+Round Rock
+Wilmington
+Arvada
+Provo
+Peoria
+Lansing
+Downey
+Carlsbad
+Costa Mesa
+Miami Gardens
+Westminster
+Clearwater
+Fairfield
+Rochester
+Elgin
+Temecula
+West Jordan
+Inglewood
+Richardson
+Lowell
+Gresham
+Antioch
+Cambridge
+High Point
+Billings
+Manchester
+Murrieta
+Centennial
+Richmond
+Ventura
+Pueblo
+Pearland
+Waterbury
+West Covina
+North Charleston
+Everett
+College Station
+Palm Bay
+Pompano Beach
+Boulder
+Norwalk
+West Palm Beach
+Broken Arrow
+Daly City
+Sandy Springs
+Burbank
+Green Bay
+Santa Maria
+Wichita Falls
+Lakeland
+Clovis
+Lewisville
+Tyler
+El Cajon
+San Mateo
+Rialto
+Edison
+Davenport
+Hillsboro
+Woodbridge
+Las Cruces
+South Bend
+Vista
+Greeley
+Davie
+San Angelo
+Jurupa Valley
+Renton
+Afghanistan
+Albania
+Algeria
+Andorra
+Angola
+Antigua & Deps
+Argentina
+Armenia
+Australia
+Austria
+Azerbaijan
+Bahamas
+Bahrain
+Bangladesh
+Barbados
+Belarus
+Belgium
+Belize
+Benin
+Bhutan
+Bolivia
+Bosnia Herzegovina
+Botswana
+Brazil
+Brunei
+Bulgaria
+Burkina
+Burundi
+Cambodia
+Cameroon
+Canada
+Cape Verde
+Central African Rep
+Chad
+Chile
+China
+Colombia
+Comoros
+Congo
+Congo {Democratic Rep}
+Costa Rica
+Croatia
+Cuba
+Cyprus
+Czech Republic
+Denmark
+Djibouti
+Dominica
+Dominican Republic
+East Timor
+Ecuador
+Egypt
+El Salvador
+Equatorial Guinea
+Eritrea
+Estonia
+Ethiopia
+Fiji
+Finland
+France
+Gabon
+Gambia
+Georgia
+Germany
+Ghana
+Greece
+Grenada
+Guatemala
+Guinea
+Guinea-Bissau
+Guyana
+Haiti
+Honduras
+Hungary
+Iceland
+India
+Indonesia
+Iran
+Iraq
+Ireland {Republic}
+Israel
+Italy
+Ivory Coast
+Jamaica
+Japan
+Jordan
+Kazakhstan
+Kenya
+Kiribati
+Korea North
+Korea South
+Kosovo
+Kuwait
+Kyrgyzstan
+Laos
+Latvia
+Lebanon
+Lesotho
+Liberia
+Libya
+Liechtenstein
+Lithuania
+Luxembourg
+Macedonia
+Madagascar
+Malawi
+Malaysia
+Maldives
+Mali
+Malta
+Marshall Islands
+Mauritania
+Mauritius
+Mexico
+Micronesia
+Moldova
+Monaco
+Mongolia
+Montenegro
+Morocco
+Mozambique
+Myanmar, {Burma}
+Namibia
+Nauru
+Nepal
+Netherlands
+New Zealand
+Nicaragua
+Niger
+Nigeria
+Norway
+Oman
+Pakistan
+Palau
+Panama
+Papua New Guinea
+Paraguay
+Peru
+Philippines
+Poland
+Portugal
+Qatar
+Romania
+Russian Federation
+Rwanda
+St Kitts & Nevis
+St Lucia
+Saint Vincent & the Grenadines
+Samoa
+San Marino
+Sao Tome & Principe
+Saudi Arabia
+Senegal
+Serbia
+Seychelles
+Sierra Leone
+Singapore
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Sudan
+Spain
+Sri Lanka
+Sudan
+Suriname
+Swaziland
+Sweden
+Switzerland
+Syria
+Taiwan
+Tajikistan
+Tanzania
+Thailand
+Togo
+Tonga
+Trinidad & Tobago
+Tunisia
+Turkey
+Turkmenistan
+Tuvalu
+Uganda
+Ukraine
+United Arab Emirates
+United Kingdom
+Uruguay
+Uzbekistan
+Vanuatu
+Vatican City
+Venezuela
+Vietnam
+Yemen
+Zambia
+Zimbabwe

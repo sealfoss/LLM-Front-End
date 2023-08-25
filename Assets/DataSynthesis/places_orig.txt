@@ -1,0 +1,302 @@
+New York 	8,175,133 	302.6 sq mi
+Los Angeles 	3,792,621 	468.7 sq mi
+Chicago 	2,695,598 	227.6 sq mi
+Houston 	2,100,263 	599.6 sq mi
+Philadelphia 	1,526,006 	134.1 sq mi
+Phoenix 	1,445,632 	516.7 sq mi
+San Diego 	1,307,402 	325.2 sq mi
+Dallas 	1,197,816 	340.5 sq mi
+San Jose 	945,942 	176.6 sq mi
+Austin 	790,390 	322.48 sq mi
+Jacksonville 	821,784 	747.0 sq mi
+San Francisco 	805,235 	46.9 sq mi
+Indianapolis 	820,445 	361.4 sq mi
+Columbus 	787,033 	217.2 sq mi
+Fort Worth 	741,206 	339.8 sq mi
+Charlotte 	731,424 	297.7 sq mi
+Seattle 	608,660 	83.9 sq mi
+Denver 	600,158 	153.0 sq mi
+El Paso 	649,121 	255.2 sq mi
+Detroit 	713,777 	138.8 sq mi
+Washington 	601,723 	61.0 sq mi
+Boston 	617,594 	48.3 sq mi
+Memphis 	646,889 	315.1 sq mi
+Nashville 	601,222 	475.1 sq mi
+Portland 	583,776 	133.4 sq mi
+Oklahoma City 	579,999 	606.4 sq mi
+Las Vegas 	583,756 	135.8 sq mi
+Baltimore 	620,961 	80.9 sq mi
+Louisville 	597,337 	325.2 sq mi
+Milwaukee 	594,833 	96.1 sq mi
+Albuquerque 	545,852 	187.7 sq mi
+Tucson 	520,116 	226.7 sq mi
+Fresno 	494,665 	113.2 sq mi
+Sacramento 	466,488 	97.9 sq mi
+Kansas City 	459,787 	315.0 sq mi
+Long Beach 	462,257 	50.3 sq mi
+Mesa 	439,041 	136.5 sq mi
+Atlanta 	420,003 	133.2 sq mi
+Colorado Springs 	416,427 	194.5 sq mi
+Virginia Beach 	437,994 	249.0 sq mi
+Raleigh 	403,892 	142.9 sq mi
+Omaha 	408,958 	127.1 sq mi
+Miami 	399,457 	35.9 sq mi
+Oakland 	390,724 	55.9 sq mi
+Minneapolis 	382,578 	54.0 sq mi
+Tulsa 	391,906 	196.8 sq mi
+Wichita 	382,368 	159.3 sq mi
+New Orleans 	343,829 	169.4 sq mi
+Arlington 	365,438 	95.9 sq mi
+Cleveland 	396,815 	77.7 sq mi
+Bakersfield 	347,483 	142.2 sq mi
+Tampa 	335,709 	113.4 sq mi
+Aurora 	325,078 	154.1 sq mi
+Honolulu 	337,256 	60.5 sq mi
+Anaheim 	336,265 	49.8 sq mi
+Santa Ana 	324,528 	27.3 sq mi
+Corpus Christi 	305,215 	160.6 sq mi
+Riverside 	303,871 	81.1 sq mi
+St. Louis 	319,294 	61.9 sq mi
+Lexington 	295,803 	283.6 sq mi
+Stockton 	291,707 	61.7 sq mi
+Pittsburgh 	305,704 	55.4 sq mi
+Saint Paul 	285,068 	52.0 sq mi
+Anchorage 	291,826 	1,704.7 sq mi
+Cincinnati 	296,943 	77.9 sq mi
+Henderson 	257,729 	107.7 sq mi
+Greensboro 	269,666 	126.5 sq mi
+Plano 	259,841 	71.6 sq mi
+Newark 	277,140 	24.2 sq mi
+Toledo 	287,208 	80.7 sq mi
+Lincoln 	258,379 	89.1 sq mi
+Orlando 	238,300 	102.4 sq mi
+Chula Vista 	243,916 	49.6 sq mi
+Jersey City 	247,597 	14.8 sq mi
+Chandler 	236,123 	64.4 sq mi
+Fort Wayne 	253,691 	110.6 sq mi
+Buffalo 	261,310 	40.4 sq mi
+Durham 	228,330 	107.4 sq mi
+St. Petersburg 	244,769 	61.7 sq mi
+Irvine 	212,375 	66.1 sq mi
+Laredo 	236,091 	88.9 sq mi
+Lubbock 	229,573 	122.4 sq mi
+Madison 	233,209 	76.8 sq mi
+Gilbert 	208,453 	68.0 sq mi
+Norfolk 	242,803 	54.1 sq mi
+Reno 	225,221 	103.0 sq mi
+Winston-Salem 	229,617 	132.4 sq mi
+Glendale 	226,721 	60.0 sq mi
+Hialeah 	224,669 	21.5 sq mi
+Garland 	226,876 	57.1 sq mi
+Scottsdale 	217,385 	183.9 sq mi
+Irving 	216,290 	67.0 sq mi
+Chesapeake 	222,209 	340.8 sq mi
+North Las Vegas 	216,961 	101.3 sq mi
+Fremont 	214,089 	77.5 sq mi
+Baton Rouge 	229,493 	76.9 sq mi
+Richmond 	204,214 	59.8 sq mi
+Boise 	205,671 	79.4 sq mi
+San Bernardino 	209,924 	59.2 sq mi
+Spokane 	208,916 	59.2 sq mi
+Birmingham 	212,237 	146.1 sq mi
+Modesto 	201,165 	36.9 sq mi
+Des Moines 	203,433 	80.9 sq mi
+Rochester 	210,565 	35.8 sq mi
+Tacoma 	198,397 	49.7 sq mi
+Fontana 	196,069 	42.4 sq mi
+Oxnard 	197,899 	26.9 sq mi
+Moreno Valley 	193,365 	51.3 sq mi
+Fayetteville 	200,564 	145.8 sq mi
+Huntington Beach 	189,992 	26.7 sq mi
+Yonkers 	195,976 	18.0 sq mi
+Glendale 	191,719 	30.5 sq mi
+Montgomery 	205,764 	159.6 sq mi
+Columbus 	189,885 	216.4 sq mi
+Amarillo 	190,695 	99.5 sq mi
+Little Rock 	193,524 	119.2 sq mi
+Akron 	199,110 	62.0 sq mi
+Shreveport 	199,311 	105.4 sq mi
+Augusta 	195,844 	302.5 sq mi
+Grand Rapids 	188,040 	44.4 sq mi
+Mobile 	195,111 	139.1 sq mi
+Salt Lake City 	186,440 	111.1 sq mi
+Huntsville 	180,105 	209.1 sq mi
+Tallahassee 	181,376 	100.2 sq mi
+Grand Prairie 	175,396 	72.1 sq mi
+Overland Park 	173,372 	74.8 sq mi
+Knoxville 	178,874 	98.5 sq mi
+Worcester 	181,045 	37.4 sq mi
+Brownsville 	175,023 	132.3 sq mi
+Newport News 	180,719 	68.7 sq mi
+Santa Clarita 	176,320 	52.7 sq mi
+Port St. Lucie 	164,603 	114.0 sq mi
+Providence 	178,042 	18.4 sq mi
+Fort Lauderdale 	165,521 	34.8 sq mi
+Chattanooga 	167,674 	137.2 sq mi
+Tempe 	161,719 	39.9 sq mi
+Oceanside 	167,086 	41.2 sq mi
+Garden Grove 	170,883 	17.9 sq mi
+Rancho Cucamonga 	165,269 	39.9 sq mi
+Cape Coral 	154,305 	105.7 sq mi
+Santa Rosa 	167,815 	41.3 sq mi
+Vancouver 	161,791 	46.5 sq mi
+Sioux Falls 	153,888 	73.0 sq mi
+Peoria 	154,065 	174.4 sq mi
+Ontario 	163,924 	49.9 sq mi
+Jackson 	173,514 	111.0 sq mi
+Elk Grove 	153,015 	42.2 sq mi
+Springfield 	159,498 	81.7 sq mi
+Pembroke Pines 	154,019 	33.1 sq mi
+Salem 	154,637 	47.9 sq mi
+Corona 	152,374 	38.8 sq mi
+Eugene 	156,185 	43.7 sq mi
+McKinney 	131,117 	62.2 sq mi
+Fort Collins 	143,986 	54.3 sq mi
+Lancaster 	156,633 	94.3 sq mi
+Cary 	135,234 	54.3 sq mi
+Palmdale 	152,750 	106.0 sq mi
+Hayward 	144,186 	45.3 sq mi
+Salinas 	150,441 	23.2 sq mi
+Frisco 	116,989 	61.8 sq mi
+Springfield 	153,060 	31.9 sq mi
+Pasadena 	149,043 	42.8 sq mi
+Macon 	91,351 	255.1 sq mi
+Alexandria 	139,966 	15.0 sq mi
+Pomona 	149,058 	23.0 sq mi
+Lakewood 	142,980 	42.9 sq mi
+Sunnyvale 	140,081 	22.0 sq mi
+Escondido 	143,911 	36.8 sq mi
+Kansas City 	145,786 	124.8 sq mi
+Hollywood 	140,768 	27.4 sq mi
+Clarksville 	132,929 	97.6 sq mi
+Torrance 	145,438 	20.5 sq mi
+Rockford 	152,871 	61.1 sq mi
+Joliet 	147,433 	62.1 sq mi
+Paterson 	146,199 	8.4 sq mi
+Bridgeport 	144,229 	16.0 sq mi
+Naperville 	141,853 	38.8 sq mi
+Savannah 	136,286 	103.2 sq mi
+Mesquite 	139,824 	46.0 sq mi
+Syracuse 	145,170 	25.0 sq mi
+Pasadena 	137,122 	23.0 sq mi
+Orange 	136,416 	24.8 sq mi
+Fullerton 	135,161 	22.4 sq mi
+Killeen 	127,921 	53.6 sq mi
+Dayton 	141,527 	55.7 sq mi
+McAllen 	129,877 	48.3 sq mi
+Bellevue 	122,363 	32.0 sq mi
+Miramar 	122,041 	29.5 sq mi
+Hampton 	137,436 	51.4 sq mi
+West Valley City 	129,480 	35.6 sq mi
+Warren 	134,056 	34.4 sq mi
+Olathe 	125,872 	59.7 sq mi
+Columbia 	129,272 	132.2 sq mi
+Thornton 	118,772 	34.8 sq mi
+Carrollton 	119,097 	36.3 sq mi
+Midland 	111,147 	72.1 sq mi
+Charleston 	120,083 	109.0 sq mi
+Waco 	124,805 	89.0 sq mi
+Sterling Heights 	129,699 	36.5 sq mi
+Denton 	113,383 	88.0 sq mi
+Cedar Rapids 	126,326 	70.8 sq mi
+New Haven 	129,779 	18.7 sq mi
+Roseville 	118,788 	36.2 sq mi
+Gainesville 	124,354 	61.3 sq mi
+Visalia 	124,442 	36.2 sq mi
+Coral Springs 	121,096 	23.8 sq mi
+Thousand Oaks 	126,683 	55.0 sq mi
+Elizabeth 	124,969 	12.3 sq mi
+Stamford 	122,643 	37.6 sq mi
+Concord 	122,067 	30.5 sq mi
+Surprise 	117,517 	105.7 sq mi
+Lafayette 	120,623 	49.2 sq mi
+Topeka 	127,473 	60.2 sq mi
+Kent 	92,411 	28.6 sq mi
+Simi Valley 	124,237 	41.5 sq mi
+Santa Clara 	116,468 	18.4 sq mi
+Murfreesboro 	108,755 	55.3 sq mi
+Hartford 	124,775 	17.4 sq mi
+Athens 	115,452 	116.4 sq mi
+Victorville 	115,903 	73.2 sq mi
+Abilene 	117,063 	106.8 sq mi
+Vallejo 	115,942 	30.7 sq mi
+Berkeley 	112,580 	10.5 sq mi
+Norman 	110,925 	178.8 sq mi
+Allentown 	118,032 	17.5 sq mi
+Evansville 	117,429 	44.2 sq mi
+Columbia 	108,500 	63.1 sq mi
+Odessa 	99,940 	42.0 sq mi
+Fargo 	105,549 	48.8 sq mi
+Beaumont 	118,296 	82.8 sq mi
+Independence 	116,830 	77.6 sq mi
+Ann Arbor 	113,934 	27.8 sq mi
+El Monte 	113,475 	9.6 sq mi
+Springfield 	116,250 	59.5 sq mi
+Round Rock 	99,887 	34.1 sq mi
+Wilmington 	106,476 	51.5 sq mi
+Arvada 	106,433 	35.1 sq mi
+Provo 	112,488 	41.7 sq mi
+Peoria 	115,007 	48.0 sq mi
+Lansing 	114,297 	36.0 sq mi
+Downey 	111,772 	12.4 sq mi
+Carlsbad 	105,328 	37.7 sq mi
+Costa Mesa 	109,960 	15.7 sq mi
+Miami Gardens 	107,167 	18.2 sq mi
+Westminster 	106,114 	31.6 sq mi
+Clearwater 	107,685 	25.6 sq mi
+Fairfield 	105,321 	37.4 sq mi
+Rochester 	106,769 	54.6 sq mi
+Elgin 	108,188 	37.2 sq mi
+Temecula 	100,097 	30.2 sq mi
+West Jordan 	103,712 	32.5 sq mi
+Inglewood 	109,673 	9.1 sq mi
+Richardson 	99,223 	28.6 sq mi
+Lowell 	106,519 	13.6 sq mi
+Gresham 	105,594 	23.2 sq mi
+Antioch 	102,372 	28.3 sq mi
+Cambridge 	105,162 	6.4 sq mi
+High Point 	104,371 	53.8 sq mi
+Billings 	104,170 	43.4 sq mi
+Manchester 	109,565 	33.1 sq mi
+Murrieta 	103,466 	33.6 sq mi
+Centennial 	100,377 	28.7 sq mi
+Richmond 	103,701 	30.1 sq mi
+Ventura 	106,433 	21.7 sq mi
+Pueblo 	106,595 	53.6 sq mi
+Pearland 	91,252 	47.5 sq mi
+Waterbury 	110,366 	28.5 sq mi
+West Covina 	106,098 	16.0 sq mi
+North Charleston 	97,471 	76.6 sq mi
+Everett 	103,019 	33.4 sq mi
+College Station 	93,857 	49.6 sq mi
+Palm Bay 	103,190 	65.7 sq mi
+Pompano Beach 	99,845 	24.0 sq mi
+Boulder 	97,385 	25.7 sq mi
+Norwalk 	105,549 	9.7 sq mi
+West Palm Beach 	99,919 	55.3 sq mi
+Broken Arrow 	98,850 	61.6 sq mi
+Daly City 	101,123 	7.7 sq mi
+Sandy Springs 	93,853 	39.0 sq mi
+Burbank 	103,340 	17.3 sq mi
+Green Bay 	104,057 	45.5 sq mi
+Santa Maria 	99,553 	22.8 sq mi
+Wichita Falls 	104,553 	72.1 sq mi
+Lakeland 	97,422 	74.4 sq mi
+Clovis 	95,631 	23.3 sq mi
+Lewisville 	95,290 	42.5 sq mi
+Tyler 	96,900 	54.4 sq mi
+El Cajon 	99,478 	14.4 sq mi
+San Mateo 	97,207 	15.9 sq mi
+Rialto 	99,171 	22.4 sq mi
+Edison 	99,967 	30.6 sq mi
+Davenport 	99,685 	62.9 sq mi
+Hillsboro 	91,611 	24.3 sq mi
+Woodbridge 	99,585 	24.5 sq mi
+Las Cruces 	97,618 	76.3 sq mi
+South Bend 	101,168 	41.5 sq mi
+Vista 	93,834 	18.7 sq mi
+Greeley 	92,889 	30.0 sq mi
+Davie 	91,992 	35.7 sq mi
+San Angelo 	93,200 	58.2 sq mi
+Jurupa Valley 	0 	43.5 sq mi
+Renton 	90,927 	23.5 sq mi
