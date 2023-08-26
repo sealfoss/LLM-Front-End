@@ -19,7 +19,7 @@ public class Hearing : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        Init();
+        Reset();
     }
 
     /// <summary>
@@ -57,13 +57,15 @@ public class Hearing : MonoBehaviour
     /// <summary>
     /// Initializes hearing.
     /// </summary>
-    public void Init()
+    public void Reset()
     {
         mOwner = GetComponentInParent<Personality>();
         mSphere = GetComponent<SphereCollider>();
         mSphere.radius = mRadius;
         CheckEarshot();
     }
+
+
 
 
     /// <summary>

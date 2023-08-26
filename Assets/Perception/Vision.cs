@@ -218,6 +218,11 @@ public class Vision : MonoBehaviour
         CheckFieldOfView();
     }
 
+    public void Reset()
+    {
+        SetFov(FovHorizontal, FovVertical);
+    }
+
     /// <summary>
     /// Generates the appropriate vision volume mesh based on preference.
     /// </summary>

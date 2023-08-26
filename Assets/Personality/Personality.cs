@@ -299,7 +299,17 @@ public class Personality : MonoBehaviour, IDescribable
     /// </summary>
     public void StartPersonality()
     {
-        mVision.SetFov(mVision.FovHorizontal, mVision.FovVertical);
+        mBuilder.Clear();
+        mMessageList = new GptCommunicator.MessageList();
+        mDescriptions = mPersonalityController.GenerateNewPersonality(this);
+        foreach (string aspect in mDescriptions)
+            mBuilder.Append($"{aspect}");
+        mPersonalityPrompt = mBuilder.ToString();
+        BuildRole();
+        MessageList.SetSystemMessage(mRole);
+        mSummary = mPersonalityController.GenerateSummary(this);
+        mVision.Reset();
+        mHearing.Reset();
     }
 
     /// <summary>
@@ -307,17 +317,11 @@ public class Personality : MonoBehaviour, IDescribable
     /// </summary>
     public void Init()
     {
-        mMessageList = new GptCommunicator.MessageList();
         mBuilder = new StringBuilder(mMaxTokens * 4);
-        //mMessages = new List<GptCommunicator.Message>();
         mPersonalityController = FindAnyObjectByType<PersonalityManager>();
         if (mPersonalityController == null)
             Debug.LogError($"ERROR: No PersonalityManager found in scene!");
         mDescriptions = mPersonalityController.GenerateNewPersonality(this);
-        mBuilder.Clear();
-        foreach (string aspect in mDescriptions)
-            mBuilder.Append($"{aspect}");
-        mPersonalityPrompt = mBuilder.ToString();
         mVision = GetComponentInChildren<Vision>();
         if (mVision == null)
             Debug.LogError($"ERROR: Character {mCharacterName} has no vision" +
@@ -325,12 +329,7 @@ public class Personality : MonoBehaviour, IDescribable
         mGpt = FindFirstObjectByType<GptCommunicator>();
         if (mGpt == null)
             Debug.LogError($"ERROR: Gpt communicator not found in scene!");
-        BuildRole();
-        //SetSystemPrompt(mRole);
-        MessageList.SetSystemMessage(mRole);
         mHearing = gameObject.GetComponentInChildren<Hearing>();
-        mHearing.Init();
-        mSummary = mPersonalityController.GenerateSummary(this);
     }
 
     /// <summary>

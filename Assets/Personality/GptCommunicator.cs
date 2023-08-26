@@ -475,8 +475,8 @@ public class GptCommunicator : MonoBehaviour
             {
                 Response response =
                     JsonUtility.FromJson<Response>(www.downloadHandler.text);
-                float tokens = (float) response.usage.total_tokens;
-                float wait = (tokens * mSecondsPerToken) + mSecondsPerMessage;
+                float tokens = (float) response.usage.total_tokens + 1;
+                float wait = Mathf.Max(tokens * mSecondsPerToken, mSecondsPerMessage);
                 Debug.Log($"Waiting {wait} seconds...");
                 yield return new WaitForSeconds(wait);
                 Debug.Log("Wait complete.");

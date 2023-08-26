@@ -249,8 +249,9 @@ MonoBehaviour:
   mTopics: []
   mMaxTokens: 4096
   mTemperature: 0.7
-  mPresencePenalty: 1
-  mFrequencyPenalty: 1
+  mPresencePenalty: 1.5
+  mFrequencyPenalty: 1.5
+  mCalculateWait: 0
   mWaitScalar: 0
   mMaxReplyWait: 20
   mManualStatement: 

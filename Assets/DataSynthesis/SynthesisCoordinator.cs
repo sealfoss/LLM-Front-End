@@ -60,6 +60,9 @@ public class SynthesisCoordinator : MonoBehaviour
     [Tooltip("Spawn locationf or character B.")]
     [SerializeField] private Transform mSpawnB;
 
+    [Tooltip("Resets personality at currnet configuration.")]
+    [SerializeField] private bool mReset = false;
+
     /// <summary>
     /// List of potential jobs for the personality to be described as having.
     /// </summary>
@@ -207,7 +210,7 @@ public class SynthesisCoordinator : MonoBehaviour
             mSamplesA = 
             mSamplesB = 0;
         if (mRunSynthOnStart)
-            RunSynth();
+            ResetSynth();
     }
 
     /// <summary>
@@ -234,7 +237,7 @@ public class SynthesisCoordinator : MonoBehaviour
                 valueIndex = 0;
                 keyIndex++;
             }
-            RunSynth();
+            ResetSynth();
         }
     }
 
@@ -254,6 +257,8 @@ public class SynthesisCoordinator : MonoBehaviour
             Increment(
                 ref mSamplesB, ref mCurrentKeyIndexB, ref mCurrentValueIndexB
             );
+        if (mReset)
+            ResetSynth();
     }
 
     /// <summary>
@@ -264,15 +269,16 @@ public class SynthesisCoordinator : MonoBehaviour
     /// </param>
     private void ConversationDenial(Personality personality)
     {
-        RunSynth();
+        ResetSynth();
     }
 
     /// <summary>
     /// Runs data synthesis under the current synthesis configuration.
     /// </summary>
-    private void RunSynth()
+    private void ResetSynth()
     {
-        ResetSynth();
+        mReset = false;
+        ResetPersonalities();
         mPersonalityA.StartPersonality();
         mPersonalityB.StartPersonality();
     }
@@ -280,7 +286,7 @@ public class SynthesisCoordinator : MonoBehaviour
     /// <summary>
     /// Resets personalities given the current synthesis configuration parameters.
     /// </summary>
-    private void ResetSynth()
+    private void ResetPersonalities()
     {
         BuildRandomCharacter(mPersonalityA);
         BuildRandomCharacter(mPersonalityB);
@@ -425,6 +431,5 @@ public class SynthesisCoordinator : MonoBehaviour
         personality.CharacterName = name;
         personality.TaskList = new string[] { task };
         personality.TopicsList = new string[] { topic };
-        personality.BuildRole();
     }
 }
