@@ -112,6 +112,19 @@ public class GptCommunicator : MonoBehaviour
         /// </summary>
         int mCurrentTokens = 0;
 
+        public Message[] ToArray()
+        {
+            // Array of messages to return.
+            Message[] array = new Message[mMessages.Count];
+
+            // Iterator variable.
+            int i;
+
+            for (i = 0; i < mMessages.Count; i++)
+                array[i] = mMessages[i].Item1;
+            return array;
+        }
+
         /// <summary>
         /// Adds a message to the list.
         /// </summary>
@@ -138,7 +151,8 @@ public class GptCommunicator : MonoBehaviour
         private void CheckTokenCount()
         {
             // Amount of tokens removed if over token count.
-            int removed = mMessages[Defines.REMOVE_INDEX].Item2;
+            int removed = mMessages.Count > 1 ? 
+                mMessages[Defines.REMOVE_INDEX].Item2 : 0;
 
             if (mCurrentTokens >= Defines.MAX_TOKENS)
             {
@@ -261,6 +275,25 @@ public class GptCommunicator : MonoBehaviour
     /// </summary>
     private Queue<RequestNode> mRequestQueue;
 
+    private float mSecondsPerToken = 6.0f / 1000.0f;
+
+    private float mSecondsPerMessage = 6.0f / 20.0f;
+
+    private RequestNode mCurrent;
+
+    private void Update()
+    {
+        lock (mRequestQueue)
+        {
+            if (mRequestQueue.Count > 0 
+                && mRequestQueue.Peek() != mCurrent)
+            {
+                mCurrent = mRequestQueue.Peek();
+                StartCoroutine(ProcessNextNode());
+            }
+        }
+    }
+
     /// <summary>
     /// Called on the frame when a script is enabled just before any of the
     /// Update methods are called the first time.
@@ -313,7 +346,6 @@ public class GptCommunicator : MonoBehaviour
         };
         lock(mRequestQueue)
             mRequestQueue.Enqueue(node);
-        StartCoroutine(ProcessNextNode());
     }
 
     /// <summary>
@@ -321,19 +353,18 @@ public class GptCommunicator : MonoBehaviour
     /// </summary>
     IEnumerator ProcessNextNode()
     {
-        RequestNode node;
         lock (mRequestQueue)
-            node = mRequestQueue.Count > 0 ? mRequestQueue.Dequeue() : null;
-        if (node != null)
         {
+            RequestNode node = mRequestQueue.Peek();
             yield return StartCoroutine(
                 PromptGpt(
                     node.mRequestPrompt,
                     node.mCaller,
                     node.mCallback,
-                    node.mOriginalPrompt)
+                    node.mOriginalPrompt
+                )
             );
-            StartCoroutine(ProcessNextNode());
+            mRequestQueue.Dequeue();
         }
     }
 
@@ -361,9 +392,8 @@ public class GptCommunicator : MonoBehaviour
             mCallback = callback,
             mCaller = caller
         };
-        lock (mRequestQueue)
+        lock(mRequestQueue)
             mRequestQueue.Enqueue(node);
-        StartCoroutine(ProcessNextNode());
     }
 
     /// <summary>
@@ -380,7 +410,16 @@ public class GptCommunicator : MonoBehaviour
         (string prompt, Personality caller, ResponseReceived callback)
     {
         string spokenReplyPrompt = $"{prompt} {Defines.REACT_INSTRUCT}";
-        StartCoroutine(PromptGpt(spokenReplyPrompt, caller, callback, prompt));
+        //StartCoroutine(PromptGpt(spokenReplyPrompt, caller, callback, prompt));
+        RequestNode node = new RequestNode
+        {
+            mRequestPrompt = spokenReplyPrompt,
+            mOriginalPrompt = prompt,
+            mCallback = callback,
+            mCaller = caller
+        };
+        lock (mRequestQueue)
+            mRequestQueue.Enqueue(node);
     }
 
     /// <summary>
@@ -398,22 +437,9 @@ public class GptCommunicator : MonoBehaviour
         ResponseReceived callback, string original)
     {
         if (mVerbose)
-            Debug.Log($"GptCommunicator: Sending reply request for prompt:\n{prompt} with" +
-                $" key {mApiKey}.");
+            Debug.Log($"GptCommunicator: Sending reply request for prompt:\n{prompt}");
         if (mSendRequests)
         {
-            // Current game time.
-            float time = Time.realtimeSinceStartup;
-
-            // Difference between current time and the last  request.
-            float delta = time - mLastRequestTime;
-
-            // How long to wait before making another request.
-            float waitSeconds = mLastRequestTime == 0 || delta >= mRateLimit ?
-                0 : mRateLimit - delta;
-            if (mVerbose)
-                Debug.Log($"GptCommunicator: Waiting {waitSeconds} seconds before sending the next request...");
-            yield return new WaitForSeconds(waitSeconds);
             if (mVerbose)
                 Debug.Log("GptCommunicator: Wait ended.");
             UnityWebRequest www = new UnityWebRequest(mUrl, "POST");
@@ -424,11 +450,13 @@ public class GptCommunicator : MonoBehaviour
                 role = "user",
                 content = prompt
             };
-            caller.Messages.Add(message);
+            //caller.Messages.Add(message);
+            caller.MessageList.AddMessage(message);
             RequestBody body = new RequestBody
             {
                 model = mModel,
-                messages = caller.Messages.ToArray(),
+                //messages = caller.Messages.ToArray(),
+                messages = caller.MessageList.ToArray(),
                 temperature = caller.Temperature,
                 presence_penalty = caller.PresencePenalty,
                 frequency_penalty = caller.FrequencyPenalty
@@ -447,15 +475,20 @@ public class GptCommunicator : MonoBehaviour
             {
                 Response response =
                     JsonUtility.FromJson<Response>(www.downloadHandler.text);
-                
-                // TO DO: You need to figure out how to turn this into a wait time
-                // and have it sit here after receiving the response based on that number.
-                int tokens = response.usage.total_tokens;
-
+                float tokens = (float) response.usage.total_tokens;
+                float wait = (tokens * mSecondsPerToken) + mSecondsPerMessage;
+                Debug.Log($"Waiting {wait} seconds...");
+                yield return new WaitForSeconds(wait);
+                Debug.Log("Wait complete.");
                 string responseText = response.choices[0].message.content;
                 if (!responseText.Contains(Defines.RESPONSE_DENY))
                 {
+                    /*
                     caller.Messages.Add(
+                        new Message { role = "assistant", content = responseText }
+                    );
+                    */
+                    caller.MessageList.AddMessage(
                         new Message { role = "assistant", content = responseText }
                     );
                     callback?.Invoke(responseText.Replace("\"", string.Empty));

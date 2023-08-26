@@ -286,8 +286,6 @@ public class SynthesisCoordinator : MonoBehaviour
         BuildRandomCharacter(mPersonalityB);
         SetPersonalityValuesOneShot(mPersonalityA, mCurrentKeyIndexA, mCurrentValueIndexA);
         SetPersonalityValuesOneShot(mPersonalityB, mCurrentKeyIndexB, mCurrentValueIndexB);
-        mPersonalityA.Init();
-        mPersonalityB.Init();
     }
 
     /// <summary>
@@ -427,5 +425,6 @@ public class SynthesisCoordinator : MonoBehaviour
         personality.CharacterName = name;
         personality.TaskList = new string[] { task };
         personality.TopicsList = new string[] { topic };
+        personality.BuildRole();
     }
 }

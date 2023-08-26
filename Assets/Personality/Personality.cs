@@ -193,7 +193,7 @@ public class Personality : MonoBehaviour, IDescribable
     /// <summary>
     /// List of GPT Messages sent and received on behalf of this Character.
     /// </summary>
-    private List<GptCommunicator.Message> mMessages;
+    //private List<GptCommunicator.Message> mMessages;
 
     /// <summary>
     /// Description of Character's surroundings.
@@ -215,6 +215,8 @@ public class Personality : MonoBehaviour, IDescribable
     /// Short description of personality, for data collection purposes.
     /// </summary>
     private string mSummary;
+
+    private GptCommunicator.MessageList mMessageList;
 
     /** Accessors/Setters **/
     public string CharacterName 
@@ -254,7 +256,7 @@ public class Personality : MonoBehaviour, IDescribable
         set => mLookingAt = value;
     }
     public string[] Descriptions { get => mDescriptions; }
-    public List<GptCommunicator.Message> Messages { get => mMessages; }
+    //public List<GptCommunicator.Message> Messages { get => mMessages; }
     public bool Verbose { get => mVerbose; }
     public string Summary { get => mSummary; }
     public string Tasks { get => TasksDescription(); }
@@ -263,6 +265,7 @@ public class Personality : MonoBehaviour, IDescribable
     public string Topics { get => TopicsDescription(); }
     public string[] TopicsList { set => mTopics = value; }
     public float Wait { get => mLastStatementWait; }
+    public GptCommunicator.MessageList MessageList { get => mMessageList; }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -304,8 +307,9 @@ public class Personality : MonoBehaviour, IDescribable
     /// </summary>
     public void Init()
     {
+        mMessageList = new GptCommunicator.MessageList();
         mBuilder = new StringBuilder(mMaxTokens * 4);
-        mMessages = new List<GptCommunicator.Message>();
+        //mMessages = new List<GptCommunicator.Message>();
         mPersonalityController = FindAnyObjectByType<PersonalityManager>();
         if (mPersonalityController == null)
             Debug.LogError($"ERROR: No PersonalityManager found in scene!");
@@ -321,8 +325,9 @@ public class Personality : MonoBehaviour, IDescribable
         mGpt = FindFirstObjectByType<GptCommunicator>();
         if (mGpt == null)
             Debug.LogError($"ERROR: Gpt communicator not found in scene!");
-        mRole = BuildRole();
-        SetSystemPrompt(mRole);
+        BuildRole();
+        //SetSystemPrompt(mRole);
+        MessageList.SetSystemMessage(mRole);
         mHearing = gameObject.GetComponentInChildren<Hearing>();
         mHearing.Init();
         mSummary = mPersonalityController.GenerateSummary(this);
@@ -334,11 +339,12 @@ public class Personality : MonoBehaviour, IDescribable
     /// <returns>
     /// Role description.
     /// </returns>
-    private string BuildRole()
+    public string BuildRole()
     {
         mRole = $"{Defines.ROLE_HEAD} {BackStory} named " +
             $"{CharacterName} {Defines.ROLE_MID} {mPersonalityPrompt} " +
             $"{Tasks}{Topics}{Defines.ROLE_TAIL} {Defines.DIALOGUE_RULE}";
+        mMessageList.SetSystemMessage(mRole);
         return mRole;
     }
 
@@ -428,12 +434,11 @@ public class Personality : MonoBehaviour, IDescribable
             role = "system",
             content = prompt
         };
-
+        /*
         if (mMessages.Count > 0)
             mMessages.RemoveAt(0);
         mMessages.Insert(0, system);
-        Debug.Log($"{mCharacterName} is using the following role:" +
-            $"\n\"{mRole}\"");
+        */
     }
 
     /// <summary>
@@ -534,7 +539,7 @@ public class Personality : MonoBehaviour, IDescribable
     {
         string prompt = $"{speaker.DescribeSelfForOther(this)} " +
             $"{Defines.HEAR_OTHER_MID} \"{statement}\"{Defines.END_TAIL}";
-        if (true) //(mVerbose)
+        if (mVerbose)
             Debug.Log($"{mCharacterName} heard \"{statement}\".");
         mGpt.RequestConversationalReply(prompt, this, SayOutLoud);
     }
