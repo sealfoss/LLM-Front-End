@@ -247,11 +247,13 @@ public class SynthesisCoordinator : MonoBehaviour
     private void ConversationRecord(Personality personality)
     {
         if (personality == mPersonalityA)
-            Increment
-                (ref mSamplesA, ref mCurrentKeyIndexA, ref mCurrentValueIndexA);
+            Increment(
+                ref mSamplesA, ref mCurrentKeyIndexA, ref mCurrentValueIndexA
+            );
         if (personality == mPersonalityB)
-            Increment
-                (ref mSamplesB, ref mCurrentKeyIndexB, ref mCurrentValueIndexB);
+            Increment(
+                ref mSamplesB, ref mCurrentKeyIndexB, ref mCurrentValueIndexB
+            );
     }
 
     /// <summary>

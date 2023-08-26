@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCharacterName: Bilbo
-  mSelfDescription: a simulated video game character
+  mBackStory: a simulated video game character
   mOpenness: 2
   mConscientiousness: 2
   mExtraversion: 2
@@ -245,15 +245,18 @@ MonoBehaviour:
   mSarcasm: 2
   mSecrets: []
   mShirtSleeve: []
+  mTasks: []
+  mTopics: []
   mMaxTokens: 4096
   mTemperature: 0.7
   mPresencePenalty: 1
   mFrequencyPenalty: 1
-  mWaitScalar: 0.1
+  mWaitScalar: 0
   mMaxReplyWait: 20
   mManualStatement: 
   mMakeManualStatment: 0
   mVerbose: 0
+  mAutoActivate: 0
 --- !u!1001 &3008627973970610118
 PrefabInstance:
   m_ObjectHideFlags: 0

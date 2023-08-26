@@ -11,6 +11,9 @@ using System;
 /// </summary>
 public class GptCommunicator : MonoBehaviour
 {
+    /// <summary>
+    /// Message structure for prompts sent to GPT.
+    /// </summary>
     [System.Serializable]
     public class Message
     {
@@ -18,6 +21,9 @@ public class GptCommunicator : MonoBehaviour
         public string content;
     }
 
+    /// <summary>
+    /// Request structure for prompts sent to GPT.
+    /// </summary>
     [System.Serializable]
     public class RequestBody
     {
@@ -28,6 +34,9 @@ public class GptCommunicator : MonoBehaviour
         public double frequency_penalty;
     }
 
+    /// <summary>
+    /// Structure of choice made when multiple outputs are generatd.
+    /// </summary>
     [System.Serializable]
     public class Choice
     {
@@ -36,6 +45,9 @@ public class GptCommunicator : MonoBehaviour
         public string finish_reason;
     }
 
+    /// <summary>
+    /// Structure measuring GPT usage.
+    /// </summary>
     [System.Serializable]
     public class Usage
     {
@@ -44,6 +56,9 @@ public class GptCommunicator : MonoBehaviour
         public int total_tokens;
     }
 
+    /// <summary>
+    /// Structure of responses received by GPT.
+    /// </summary>
     [System.Serializable]
     public class Response
     {
@@ -55,11 +70,114 @@ public class GptCommunicator : MonoBehaviour
         public Usage usage;
     }
 
-    public class QueuePrompt
+    /// <summary>
+    /// Queue node for messages to be sent to GPT.
+    /// </summary>
+    private class RequestNode
     {
-        string prompt;
-        Personality caller;
-        ResponseReceived callback;
+        /// <summary>
+        /// String to prompt GPT with.
+        /// </summary>
+        public string mRequestPrompt;
+
+        /// <summary>
+        /// Original prompt, before formatting for GPT.
+        /// </summary>
+        public string mOriginalPrompt;
+
+        /// <summary>
+        /// Personality for whom the response is being requested.
+        /// </summary>
+        public Personality mCaller;
+
+        /// <summary>
+        /// Callback function to fire upon reciept of a response.
+        /// </summary>
+        public ResponseReceived mCallback;
+    }
+
+    /// <summary>
+    /// List of messages sent to GPT and associated meta data.
+    /// </summary>
+    public class MessageList
+    {
+        /// <summary>
+        /// List of messages associated w/ their token count.
+        /// </summary>
+        List< Tuple<Message, int> > mMessages = 
+            new List< Tuple<Message, int> >();
+
+        /// <summary>
+        /// Current amount of tokens used by this message list.
+        /// </summary>
+        int mCurrentTokens = 0;
+
+        /// <summary>
+        /// Adds a message to the list.
+        /// </summary>
+        /// <param name="message">
+        /// Message to add.
+        /// </param>
+        public void AddMessage(Message message)
+        {
+            // Token count of message content.
+            int tokens = message.content.Length / Defines.CHAR_PER_TOKEN;
+
+            // Pair of message and its token count.
+            Tuple<Message, int> pair = 
+                new Tuple<Message, int>(message, tokens);
+
+            mCurrentTokens += tokens;
+            mMessages.Add(pair);
+            CheckTokenCount();
+        }
+
+        /// <summary>
+        /// Checks if messages need to be removed to keep tokens under max.
+        /// </summary>
+        private void CheckTokenCount()
+        {
+            // Amount of tokens removed if over token count.
+            int removed = mMessages[Defines.REMOVE_INDEX].Item2;
+
+            if (mCurrentTokens >= Defines.MAX_TOKENS)
+            {
+                mMessages.RemoveAt(Defines.REMOVE_INDEX);
+                mCurrentTokens -= removed;
+            }
+        }
+
+        /// <summary>
+        /// Sets the system message for GPT prompts.
+        /// </summary>
+        /// <param name="message">
+        /// Message to use in the system role.
+        /// </param>
+        public void SetSystemMessage(string message)
+        {
+            // Message - token count pair.
+            Tuple<Message, int> pair;
+
+            // Token size of message, approximate.
+            int tokenCount = message.Length / Defines.CHAR_PER_TOKEN;
+
+            // New system message.
+            Message system = new Message
+            {
+                role = Defines.GPT_SYSTEM_ROLE_NAME,
+                content = message
+            };
+
+            pair = new Tuple<Message, int>(system, tokenCount);
+            if (mMessages.Count > 0)
+            {
+                mCurrentTokens -= mMessages[0].Item2;
+                mMessages.RemoveAt(0);
+            }
+            mMessages.Insert(0, pair);
+            mCurrentTokens += pair.Item2;
+            CheckTokenCount();
+        }
     }
 
     [Tooltip("Enter your OpenAI API key here.")]
@@ -80,6 +198,9 @@ public class GptCommunicator : MonoBehaviour
 
     [Tooltip("Records output for analysis or training.")]
     [SerializeField] private bool mRecordOutput = false;
+
+    [Tooltip("Whether to print status messages to console.")]
+    [SerializeField] private bool mVerbose = false;
 
     /// <summary>
     /// Current filename to record output to.
@@ -136,11 +257,17 @@ public class GptCommunicator : MonoBehaviour
     public event Record OnRecord;
 
     /// <summary>
+    /// Queue of requests to be made to GPT.
+    /// </summary>
+    private Queue<RequestNode> mRequestQueue;
+
+    /// <summary>
     /// Called on the frame when a script is enabled just before any of the
     /// Update methods are called the first time.
     /// </summary>
     private void OnEnable()
     {
+        mRequestQueue = new Queue<RequestNode>();
         if (mRecordOutput)
         {
             mBuilder = new StringBuilder(Defines.MAX_TOKENS);
@@ -152,6 +279,9 @@ public class GptCommunicator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when disabled and deactivated.
+    /// </summary>
     private void OnDisable()
     {
         if (mWriter != null)
@@ -173,16 +303,67 @@ public class GptCommunicator : MonoBehaviour
     {
         string replyPrompt = $"{prompt} {Defines.REPLY_INSTRUCT}" +
             $"{Defines.RESPONSE_CHECK}{Defines.RESPONSE_DENY}";
-        StartCoroutine(PromptGpt(replyPrompt, caller, callback, prompt));
+        //StartCoroutine(PromptGpt(replyPrompt, caller, callback, prompt));
+        RequestNode node = new RequestNode
+        {
+            mRequestPrompt = replyPrompt,
+            mOriginalPrompt = prompt,
+            mCallback = callback,
+            mCaller = caller
+        };
+        lock(mRequestQueue)
+            mRequestQueue.Enqueue(node);
+        StartCoroutine(ProcessNextNode());
     }
 
+    /// <summary>
+    ///  Processes next request node through queue.
+    /// </summary>
+    IEnumerator ProcessNextNode()
+    {
+        RequestNode node;
+        lock (mRequestQueue)
+            node = mRequestQueue.Count > 0 ? mRequestQueue.Dequeue() : null;
+        if (node != null)
+        {
+            yield return StartCoroutine(
+                PromptGpt(
+                    node.mRequestPrompt,
+                    node.mCaller,
+                    node.mCallback,
+                    node.mOriginalPrompt)
+            );
+            StartCoroutine(ProcessNextNode());
+        }
+    }
+
+    /// <summary>
+    /// Requests a statement to be made by Character from GPT in reply to 
+    /// what is currently "seeing".
+    /// </summary>
+    /// <param name="prompt">
+    /// Conversation GPT should generate a reply to.
+    /// </param>
+    /// <param name="callback">
+    /// Method to execute once reply has been received from GPT.
+    /// </param>
     public void RequestVisualQueuePrompt
         (string prompt, Personality caller, ResponseReceived callback)
     {
         string replyPrompt = $"{Defines.VIS_ASSESS_HEAD} {prompt}" +
             $" {Defines.VIS_ASSESS_SAY} {Defines.RESPONSE_CHECK}" +
             $"{Defines.RESPONSE_DENY}";
-        StartCoroutine(PromptGpt(replyPrompt, caller, callback, prompt));
+        //StartCoroutine(PromptGpt(replyPrompt, caller, callback, prompt));
+        RequestNode node = new RequestNode
+        {
+            mRequestPrompt = replyPrompt,
+            mOriginalPrompt = prompt,
+            mCallback = callback,
+            mCaller = caller
+        };
+        lock (mRequestQueue)
+            mRequestQueue.Enqueue(node);
+        StartCoroutine(ProcessNextNode());
     }
 
     /// <summary>
@@ -216,8 +397,8 @@ public class GptCommunicator : MonoBehaviour
         string prompt, Personality caller, 
         ResponseReceived callback, string original)
     {
-        if (caller.Verbose)
-            Debug.Log($"Sending reply request for prompt:\n{prompt} with" +
+        if (mVerbose)
+            Debug.Log($"GptCommunicator: Sending reply request for prompt:\n{prompt} with" +
                 $" key {mApiKey}.");
         if (mSendRequests)
         {
@@ -230,8 +411,11 @@ public class GptCommunicator : MonoBehaviour
             // How long to wait before making another request.
             float waitSeconds = mLastRequestTime == 0 || delta >= mRateLimit ?
                 0 : mRateLimit - delta;
-
+            if (mVerbose)
+                Debug.Log($"GptCommunicator: Waiting {waitSeconds} seconds before sending the next request...");
             yield return new WaitForSeconds(waitSeconds);
+            if (mVerbose)
+                Debug.Log("GptCommunicator: Wait ended.");
             UnityWebRequest www = new UnityWebRequest(mUrl, "POST");
             www.SetRequestHeader("Content-Type", "application/json");
             www.SetRequestHeader("Authorization", $"Bearer {mApiKey}");
@@ -254,11 +438,20 @@ public class GptCommunicator : MonoBehaviour
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             DownloadHandlerBuffer dH = new DownloadHandlerBuffer();
             www.downloadHandler = dH;
+            if (mVerbose)
+                Debug.Log($"GptCommunicator:  Request sent...");
             yield return www.SendWebRequest();
+            if (mVerbose)
+                Debug.Log("GptCommunicator:  Response recieved.");
             if (www.result == UnityWebRequest.Result.Success)
             {
                 Response response =
                     JsonUtility.FromJson<Response>(www.downloadHandler.text);
+                
+                // TO DO: You need to figure out how to turn this into a wait time
+                // and have it sit here after receiving the response based on that number.
+                int tokens = response.usage.total_tokens;
+
                 string responseText = response.choices[0].message.content;
                 if (!responseText.Contains(Defines.RESPONSE_DENY))
                 {
@@ -272,14 +465,14 @@ public class GptCommunicator : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"Got denial string \"{Defines.RESPONSE_DENY}\"" +
+                    Debug.Log($"GptCommunicator: Got denial string \"{Defines.RESPONSE_DENY}\"" +
                         $" from prompt:\n\"{prompt}\"");
                     OnDenial?.Invoke(caller);
                 }
             }
             else
             {
-                Debug.Log($"Requester Error: {www.error}");
+                Debug.Log($"GptCommunicator: Requester Error: {www.error}");
             }
             mLastRequestTime = Time.realtimeSinceStartup;
         }

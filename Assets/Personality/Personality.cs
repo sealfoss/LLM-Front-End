@@ -104,13 +104,15 @@ public class Personality : MonoBehaviour, IDescribable
         " -OpenAI API Documenation")]
     [SerializeField] float mFrequencyPenalty = 1.0f;
 
+    [Tooltip("Whehter to wait based on char length of last response.")]
+    [SerializeField] bool mCalculateWait = false;
+
     [Tooltip("How many seconds per char the character should wait before" +
     " doing anything else after saying something.")]
     [SerializeField] float mWaitScalar = 0.1f;
 
     [Tooltip("Max time to wait before making a new gpt reply request.")]
     [SerializeField] private float mMaxReplyWait = 20.0f;
-
 
     [Header("Test Features")]
 
@@ -260,6 +262,7 @@ public class Personality : MonoBehaviour, IDescribable
     public string Role { get => BuildRole(); }
     public string Topics { get => TopicsDescription(); }
     public string[] TopicsList { set => mTopics = value; }
+    public float Wait { get => mLastStatementWait; }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -321,6 +324,7 @@ public class Personality : MonoBehaviour, IDescribable
         mRole = BuildRole();
         SetSystemPrompt(mRole);
         mHearing = gameObject.GetComponentInChildren<Hearing>();
+        mHearing.Init();
         mSummary = mPersonalityController.GenerateSummary(this);
     }
 
@@ -465,18 +469,26 @@ public class Personality : MonoBehaviour, IDescribable
     private void SayOutLoud(string statement)
     {
         // Current game time.
-        float time = Time.realtimeSinceStartup;
+        float time;
 
         // Difference between current time and the last dialogue request.
-        float delta = time - mLastStatementTime;
+        float delta;
 
         // How long to wait before making another request.
-        float waitSeconds = delta > mLastStatementWait ? 
-            0 : Mathf.Min(mMaxReplyWait, mLastStatementWait - delta);
+        float waitSeconds;
 
+        if (mCalculateWait)
+        {
+            time = Time.realtimeSinceStartup;
+            delta = time - mLastStatementTime;
+            waitSeconds = delta > mLastStatementWait ?
+                0 : Mathf.Min(mMaxReplyWait, mLastStatementWait - delta);
+            mLastStatementTime = time;
+            mLastStatementWait = statement.Length * mWaitScalar;
+        }
+        else
+            waitSeconds = 0;
         StartCoroutine(MakeStatement(statement, waitSeconds));
-        mLastStatementTime = time;
-        mLastStatementWait = statement.Length * mWaitScalar;
     }
 
     /// <summary>
@@ -493,7 +505,8 @@ public class Personality : MonoBehaviour, IDescribable
     {
         yield return new WaitForSeconds(waitSeconds);
         onSayToOthers?.Invoke(this, statement);
-        Debug.Log($"{mCharacterName} said \"{statement}\".");
+        if(mVerbose)
+            Debug.Log($"{mCharacterName} said \"{statement}\".");
     }
 
     /// <summary>
@@ -521,7 +534,7 @@ public class Personality : MonoBehaviour, IDescribable
     {
         string prompt = $"{speaker.DescribeSelfForOther(this)} " +
             $"{Defines.HEAR_OTHER_MID} \"{statement}\"{Defines.END_TAIL}";
-        if (mVerbose)
+        if (true) //(mVerbose)
             Debug.Log($"{mCharacterName} heard \"{statement}\".");
         mGpt.RequestConversationalReply(prompt, this, SayOutLoud);
     }

@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c6559f915bbd04db33b4847c9537e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mRunSynthOnStart: 0
+  mRunSynthOnStart: 1
   mSamplesPerAspect: 100
   mValueKeys:
   - openness
@@ -1393,7 +1393,7 @@ PrefabInstance:
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}
       propertyPath: mApiKey
-      value: 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
+      value: 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
       objectReference: {fileID: 0}
     - target: {fileID: 6328615725688597917, guid: 211f80a43239d464b930b446b865138e,
         type: 3}

@@ -81,4 +81,7 @@ public static class Defines
     public const string SYNTH_PLACES = "places.txt";
     public const string TOPICS_HEAD = "You want to talk with people about";
     public const int IGNORE_VAL = 2;
+    public const string GPT_SYSTEM_ROLE_NAME = "system";
+    public const int CHAR_PER_TOKEN = 4;
+    public const int REMOVE_INDEX = 1;
 }

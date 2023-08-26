@@ -19,10 +19,7 @@ public class Hearing : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        mOwner = GetComponentInParent<Personality>();
-        mSphere = GetComponent<SphereCollider>();
-        mSphere.radius = mRadius;
-        CheckEarshot();
+        Init();
     }
 
     /// <summary>
@@ -56,6 +53,18 @@ public class Hearing : MonoBehaviour
         if (character && character != mOwner)
             character.onSayToOthers -= mOwner.HearFromOther;
     }
+
+    /// <summary>
+    /// Initializes hearing.
+    /// </summary>
+    public void Init()
+    {
+        mOwner = GetComponentInParent<Personality>();
+        mSphere = GetComponent<SphereCollider>();
+        mSphere.radius = mRadius;
+        CheckEarshot();
+    }
+
 
     /// <summary>
     /// Checks if any characters are within earshot.
