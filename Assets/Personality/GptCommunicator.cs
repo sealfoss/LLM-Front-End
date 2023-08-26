@@ -118,12 +118,22 @@ public class GptCommunicator : MonoBehaviour
     /// <summary>
     /// Delegate for functions called when denial string is received.
     /// </summary>
-    public delegate void Denial();
+    public delegate void Denial(Personality personality);
 
     /// <summary>
     /// Event fired when denial string is received.
     /// </summary>
     public event Denial OnDenial;
+
+    /// <summary>
+    /// Delegate for functions called when data is recorded.
+    /// </summary>
+    public delegate void Record(Personality personality);
+
+    /// <summary>
+    /// Event fired when data is recorded.
+    /// </summary>
+    public event Record OnRecord;
 
     /// <summary>
     /// Called on the frame when a script is enabled just before any of the
@@ -264,7 +274,7 @@ public class GptCommunicator : MonoBehaviour
                 {
                     Debug.Log($"Got denial string \"{Defines.RESPONSE_DENY}\"" +
                         $" from prompt:\n\"{prompt}\"");
-                    OnDenial?.Invoke();
+                    OnDenial?.Invoke(caller);
                 }
             }
             else
@@ -296,10 +306,11 @@ public class GptCommunicator : MonoBehaviour
         string promptFormatted = $"{promptUpper[0]}{prompt[1..]}";
 
         // String to record to file.
-        string record = $"You are {personality.SelfDescription}." +
+        string record = $"You are {personality.BackStory}." +
             $" {personality.Summary}\n{promptFormatted} What is your" +
             $" response?\n{output}";
 
         mWriter.WriteLine(record);
+        OnRecord?.Invoke(personality);
     }
 }

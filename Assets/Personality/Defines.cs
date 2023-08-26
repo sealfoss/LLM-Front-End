@@ -79,4 +79,6 @@ public static class Defines
     public const string SYNTH_TASKS = "tasks.txt";
     public const string SYNTH_TOPICS = "topics.txt";
     public const string SYNTH_PLACES = "places.txt";
+    public const string TOPICS_HEAD = "You want to talk with people about";
+    public const int IGNORE_VAL = 2;
 }

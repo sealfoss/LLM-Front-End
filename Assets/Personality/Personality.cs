@@ -70,12 +70,15 @@ public class Personality : MonoBehaviour, IDescribable
         " form, \"Secretly, you...\"")]
     [SerializeField] private string[] mSecrets;
 
-    [Tooltip("List of things this character would love to tell you about, in" +
-        " the form \"You want everyone to know...\"")]
+    [Tooltip("List of things about themselves this character would love to" +
+        " tell you about, in the form \"You want everyone to know...\"")]
     [SerializeField] private string[] mShirtSleeve;
 
     [Tooltip("What this character is doing right now. The tasks at hand.")]
     [SerializeField] private string[] mTasks;
+
+    [Tooltip("Subjects this character wants to ask people and talk about.")]
+    [SerializeField] private string[] mTopics;
 
     [Header("Model Paramters")]
 
@@ -212,21 +215,37 @@ public class Personality : MonoBehaviour, IDescribable
     private string mSummary;
 
     /** Accessors/Setters **/
-    public string CharacterName { get => mCharacterName; }
-    public string SelfDescription { get => mBackStory; }
+    public string CharacterName 
+    { 
+        get => mCharacterName; 
+        set => mCharacterName = value; 
+    }
+    public string BackStory { get => mBackStory; set => mBackStory = value; }
     public float Temperature { get => mTemperature; }
     public float PresencePenalty { get => mPresencePenalty; }
     public float FrequencyPenalty { get => mFrequencyPenalty; }
-    public int Openness { get => mOpenness; }
-    public int Conscientiousness { get => mConscientiousness; }
-    public int Extraversion { get => mExtraversion; }
-    public int Agreeableness { get => mAgreeableness; }
-    public int Neroticsm { get => mNeuroticsm; }
-    public int Happiness { get => mHappiness; }
-    public int Anger { get => mAnger; }
-    public int Sarcasm { get => mSarcasm; }
-    public string[] Secrets { get => mSecrets; }
-    public string[] ShirtSleeve { get => mShirtSleeve; }
+    public int Openness { get => mOpenness; set => mOpenness = value; }
+    public int Conscientiousness 
+    { 
+        get => mConscientiousness;
+        set => mConscientiousness = value;
+    }
+    public int Extraversion 
+    { 
+        get => mExtraversion;
+        set => mExtraversion = value;
+    }
+    public int Agreeableness 
+    { 
+        get => mAgreeableness;
+        set => mAgreeableness = value;
+    }
+    public int Neroticsm { get => mNeuroticsm; set => mNeuroticsm = value; }
+    public int Happiness { get => mHappiness; set => mHappiness = value; }
+    public int Anger { get => mAnger; set => mAnger = value; }
+    public int Sarcasm { get => mSarcasm; set => mSarcasm = value; }
+    public string[] Secrets { get => mSecrets; set => mSecrets = value; }
+    public string[] ShirtSleeve { get => mShirtSleeve; set => mShirtSleeve = value; }
     public IDescribable LookingAt
     {
         get => mLookingAt;
@@ -237,7 +256,10 @@ public class Personality : MonoBehaviour, IDescribable
     public bool Verbose { get => mVerbose; }
     public string Summary { get => mSummary; }
     public string Tasks { get => TasksDescription(); }
+    public string[] TaskList { set => mTasks = value; }
     public string Role { get => BuildRole(); }
+    public string Topics { get => TopicsDescription(); }
+    public string[] TopicsList { set => mTopics = value; }
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -310,10 +332,43 @@ public class Personality : MonoBehaviour, IDescribable
     /// </returns>
     private string BuildRole()
     {
-        mRole = $"{Defines.ROLE_HEAD} {SelfDescription} named " +
+        mRole = $"{Defines.ROLE_HEAD} {BackStory} named " +
             $"{CharacterName} {Defines.ROLE_MID} {mPersonalityPrompt} " +
-            $"{Tasks}{Defines.ROLE_TAIL} {Defines.DIALOGUE_RULE}";
+            $"{Tasks}{Topics}{Defines.ROLE_TAIL} {Defines.DIALOGUE_RULE}";
         return mRole;
+    }
+
+    /// <summary>
+    /// Builds a description of topics this personality wants to talk about.
+    /// </summary>
+    /// <returns>
+    /// Description of topics this perosnality wants to talk about.
+    /// </returns>
+    private string TopicsDescription()
+    {
+        // Description of topics.
+        string description = "";
+
+        if (mTopics.Length > 0)
+        {
+            mBuilder.Clear();
+            mBuilder.Append($"{Defines.TOPICS_HEAD} ");
+            if (mTopics.Length > 1)
+            {
+                for (int i = 0; i < mTopics.Length; i++)
+                {
+                    mBuilder.Append(mTopics[i]);
+                    if (i < mTopics.Length - 1)
+                        mBuilder.Append(Defines.LIST_TAIL);
+                    else
+                        mBuilder.Append(Defines.END_TAIL);
+                }
+            }
+            else
+                mBuilder.Append($"{mTopics[0]}{Defines.END_TAIL}");
+            description = mBuilder.ToString();
+        }
+        return description;
     }
 
     /// <summary>
@@ -324,14 +379,16 @@ public class Personality : MonoBehaviour, IDescribable
     /// </returns>
     private string TasksDescription()
     {
+        // Description of tasks.
         string description = "";
+
         if (mTasks.Length > 0)
         {
             mBuilder.Clear();
             mBuilder.Append($"{Defines.TASKS_HEAD} ");
             for (int i = 0; i < mTasks.Length; i++)
             {
-                mBuilder.Append(mTasks.Length);
+                mBuilder.Append(mTasks[i]);
                 if (i < mTasks.Length - 1)
                     mBuilder.Append(Defines.LIST_TAIL);
                 else
@@ -539,7 +596,7 @@ public class Personality : MonoBehaviour, IDescribable
     public string DescribeSelfForOther(Personality caller)
     {
         mBuilder.Clear();
-        mBuilder.Append($"{SelfDescription} {Defines.DESC_NAME} {CharacterName}");
+        mBuilder.Append($"{BackStory} {Defines.DESC_NAME} {CharacterName}");
         if (LookingAt != null)
             if ((object)LookingAt != caller)
                 mBuilder.Append($" {Defines.LOOK_OTHER} {LookingAt}");
